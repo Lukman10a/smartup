@@ -3,32 +3,32 @@ import { Ionicons } from "@expo/vector-icons";
 
 const TuitionContainer = () => {
   return (
-    <SafeAreaView style={styles.TuitionContainer}>
+    <View style={styles.tuitionContainer}>
       <Ionicons
         name="chevron-back"
         size={24}
         color="black"
-        style={styles.Icon}
+        style={styles.icon}
       />
-      <Text style={styles.HeaderText}>Add tuition fee</Text>
-    </SafeAreaView>
+      <Text style={styles.headerText}>Add tuition fee</Text>
+    </View>
   );
 };
 
 export default TuitionContainer;
 
 const styles = StyleSheet.create({
-  TuitionContainer: {
-    margin: 80,
-    marginTop: 60,
+  tuitionContainer: {
+    marginBottom: 60,
     flexDirection: "row",
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
   },
-  HeaderText: {
+  headerText: {
     fontSize: 18,
+    alignSelf: "center",
   },
-  Icon: {
+  icon: {
     alignSelf: "flex-start",
   },
 });

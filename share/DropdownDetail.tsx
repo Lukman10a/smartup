@@ -12,32 +12,31 @@ export default function DropdownDetail({
 }) {
   return (
     <View style={styles.dropDownDetailContainer}>
-      <View>
-        {options.map((option) => (
-          <TouchableOpacity key={option} onPress={() => handleSelected(option)}>
-            <Text
-              style={
-                selectedItem === option
-                  ? styles.selectedDropDownDetailOption
-                  : styles.dropDownDetailOption
-              }
-            >
-              {option}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      {options.map((option) => (
+        <TouchableOpacity key={option} onPress={() => handleSelected(option)}>
+          <Text
+            style={
+              selectedItem === option
+                ? styles.selectedDropDownDetailOption
+                : styles.dropDownDetailOption
+            }
+          >
+            {option}
+          </Text>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   dropDownDetailContainer: {
-    position: "absolute",
+    // position: "absolute",
     zIndex: 3,
-    top: 50,
+    // top: 50,
     width: "100%",
-    // height: 200,
+    borderWidth: 1,
+    borderColor: "red",
     marginVertical: 10,
     borderRadius: 10,
     shadowColor: "blue",
@@ -50,6 +49,7 @@ const styles = StyleSheet.create({
   dropDownDetailOption: {
     padding: 10,
     marginVertical: 7,
+    color: "#646464",
   },
   selectedDropDownDetailOption: {
     marginTop: 10,

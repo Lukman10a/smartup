@@ -19,7 +19,7 @@ const Details = ({ title, options }: { title: string; options: string[] }) => {
   };
 
   return (
-    <View style={{ position: "relative" }}>
+    <View>
       <View style={styles.detailContainer}>
         <View style={{ gap: 8 }}>
           <Text style={[styles.detailText]}>{data}</Text>

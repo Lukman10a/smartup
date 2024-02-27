@@ -8,6 +8,7 @@ import Details from "@/share/Details";
 import Button from "@/share/Button";
 import { useNavigation } from "@react-navigation/native";
 import { hp } from "@/utils/dimensions";
+import PaymentStructure from "@/share/paymentStructure";
 
 const details = DETAILS_DATA.map((item) => (
   <View key={item.title}>
@@ -24,12 +25,22 @@ const FeeSelection = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{ position: "relative" }}>
+      <ScrollView style={{}} showsVerticalScrollIndicator={false}>
         <TuitionContainer title="Add tuition fee" />
         <View style={{ paddingVertical: 15 }}>
-          <Text>Please fill in the details below to add a new fee</Text>
+          <Text style={{ color: "#7A8289" }}>
+            Please fill in the details below to add a new fee
+          </Text>
         </View>
         {details}
+        <PaymentStructure
+          title="Payment Structure"
+          options={[
+            "One-time payment",
+            "2 installment payments",
+            "3 installment payments",
+          ]}
+        />
         <Notes />
         <Button handlePress={handlePress} />
       </ScrollView>

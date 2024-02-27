@@ -5,6 +5,10 @@ export default function DropdownDetail({
   handleSelected,
   selectedItem,
   options,
+}: {
+  handleSelected: (item: any) => void;
+  selectedItem: null | string;
+  options: string[];
 }) {
   return (
     <View style={styles.dropDownDetailContainer}>
@@ -30,7 +34,7 @@ export default function DropdownDetail({
 const styles = StyleSheet.create({
   dropDownDetailContainer: {
     position: "absolute",
-    zIndex: 1,
+    zIndex: 3,
     top: 50,
     width: "100%",
     // height: 200,

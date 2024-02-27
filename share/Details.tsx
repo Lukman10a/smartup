@@ -1,21 +1,14 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  SafeAreaView,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 import DropdownDetail from "./DropdownDetail";
 
-const Details = ({ title, options }: { title: string; options?: object }) => {
+const Details = ({ title, options }: { title: string; options: string[] }) => {
   const [data, setData] = useState(title);
   const [isClicked, setIsClicked] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState<null | string>(null);
 
-  const handleSelectedOption = (item) => {
+  const handleSelectedOption = (item: any) => {
     setSelectedItem(item);
     setIsClicked(!isClicked);
     console.log({ options, item, title });
@@ -26,7 +19,7 @@ const Details = ({ title, options }: { title: string; options?: object }) => {
   };
 
   return (
-    <SafeAreaView>
+    <View style={{ position: "relative" }}>
       <View style={styles.detailContainer}>
         <View style={{ gap: 8 }}>
           <Text style={[styles.detailText]}>{data}</Text>
@@ -49,7 +42,7 @@ const Details = ({ title, options }: { title: string; options?: object }) => {
           options={options}
         />
       ) : null}
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -67,7 +60,6 @@ const styles = StyleSheet.create({
   },
   detailText: {
     fontSize: 14,
-    fontWeight: "400",
     color: "#646464",
   },
   selecteOption: {},

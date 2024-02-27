@@ -1,30 +1,32 @@
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { hp } from "@/utils/dimensions";
 
-export default function Button({
+const SecondaryCta = ({
   handlePress,
   text,
 }: {
   handlePress: () => void;
   text?: string;
-}) {
+}) => {
   return (
     <TouchableOpacity style={styles.buttonContainer} onPress={handlePress}>
-      <Text style={styles.buttonText}>{text ? text : "Continue"}</Text>
+      <Text style={styles.buttonText}>{text ? text : "Cancel"}</Text>
     </TouchableOpacity>
   );
-}
+};
+
+export default SecondaryCta;
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    backgroundColor: "#DB3A07",
+    backgroundColor: "#DC35001A",
+    // opacity: 0.1,
     padding: hp(16),
     borderRadius: hp(8),
-    marginTop: hp(35),
   },
   buttonText: {
     textAlign: "center",
-    color: "#ffff",
+    color: "#DB3A07",
   },
 });

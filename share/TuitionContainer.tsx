@@ -1,7 +1,8 @@
-import { Text, View, StyleSheet, SafeAreaView } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { hp } from "@/utils/dimensions";
 
-const TuitionContainer = () => {
+const TuitionContainer = ({ title }: { title: string }) => {
   return (
     <View style={styles.tuitionContainer}>
       <Ionicons
@@ -10,7 +11,9 @@ const TuitionContainer = () => {
         color="black"
         style={styles.icon}
       />
-      <Text style={styles.headerText}>Add tuition fee</Text>
+      <View style={{ alignItems: "center", width: "100%" }}>
+        <Text style={styles.headerText}>{title}</Text>
+      </View>
     </View>
   );
 };
@@ -19,14 +22,17 @@ export default TuitionContainer;
 
 const styles = StyleSheet.create({
   tuitionContainer: {
-    marginBottom: 60,
+    // marginTop: hp(23),
+    marginBottom: hp(30),
     flexDirection: "row",
     // justifyContent: "center",
     alignItems: "center",
   },
   headerText: {
-    fontSize: 18,
+    fontSize: hp(18),
     alignSelf: "center",
+    textAlign: "center",
+    fontWeight: "600",
   },
   icon: {
     alignSelf: "flex-start",

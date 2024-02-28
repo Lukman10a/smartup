@@ -14,14 +14,7 @@ const DETAILS_DATA = [
   },
   { title: "Session", dropdown: ["2021/2022", "2022/2023", "2023/2024"] },
   { title: "Term", dropdown: ["First Term", "Second Term", "Third Term"] },
-  {
-    title: "Payment Structure",
-    dropdown: [
-      "One-time payment",
-      "2 installment payments",
-      "3 installment payments",
-    ],
-  },
+
   {
     title: "Other associated fee",
     dropdown: [

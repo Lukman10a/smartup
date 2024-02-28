@@ -10,6 +10,34 @@ import { useNavigation } from "@react-navigation/native";
 import { hp } from "@/utils/dimensions";
 import PaymentStructure from "@/share/paymentStructure";
 
+export interface Installment {
+  type: number;
+  name: string;
+  breakdown: string[];
+}
+
+interface Payment {
+  title: string;
+  installments: Installment[];
+}
+
+const payment: Payment = {
+  title: "Payment Structure",
+  installments: [
+    { type: 1, name: "One-time payment", breakdown: ["₦100,000.00"] },
+    {
+      type: 2,
+      name: "2 installment payments",
+      breakdown: ["₦30,000.00", "₦50,000.00"],
+    },
+    {
+      type: 3,
+      name: "3 installment payments",
+      breakdown: ["₦20,000.00", "₦30,000.00", "₦50,000.00"],
+    },
+  ],
+};
+
 const details = DETAILS_DATA.map((item) => (
   <View key={item.title}>
     <Details title={item.title} options={item.dropdown} />
@@ -34,12 +62,8 @@ const FeeSelection = () => {
         </View>
         {details}
         <PaymentStructure
-          title="Payment Structure"
-          options={[
-            "One-time payment",
-            "2 installment payments",
-            "3 installment payments",
-          ]}
+          title={payment.title}
+          options={payment.installments}
         />
         <Notes />
         <Button handlePress={handlePress} />

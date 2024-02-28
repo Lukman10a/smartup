@@ -1,24 +1,29 @@
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
-import DropdownDetail from "./DropdownDetail";
 import { hp } from "@/utils/dimensions";
+import { Installment } from "@/screen/FeeSelection";
+import Dropdown from "./DropDown";
 
 const PaymentStructure = ({
   title,
   options,
 }: {
   title: string;
-  options: string[];
+  options: Installment[];
 }) => {
   const [data, setData] = useState(title);
   const [isClicked, setIsClicked] = useState(false);
   const [selectedItem, setSelectedItem] = useState<null | string>(null);
+  const [selectedBreakdown, setSelectedBreakdown] = useState<string[] | null>(
+    null
+  );
 
-  const handleSelectedOption = (item: any) => {
+  const handleSelectedOption = (item: string, breakdown: string[]) => {
     setSelectedItem(item);
+    setSelectedBreakdown(breakdown);
     setIsClicked(!isClicked);
-    console.log({ options, item, title });
+    console.log({ options });
   };
 
   const handleIconClick = () => {
@@ -50,25 +55,33 @@ const PaymentStructure = ({
             )}
           </TouchableOpacity>
         </View>
-        <View style={styles.selectedInstallmentSplitContainer}>
-          <Text style={styles.detailText}>First installment payment</Text>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Text>₦30,000.00</Text>
-            <TouchableOpacity style={styles.buttonContainer}>
-              <Text style={styles.buttonText}>Edit</Text>
-            </TouchableOpacity>
+        {selectedItem && (
+          <View style={{ gap: 6 }}>
+            {selectedBreakdown?.map((installment, index) => (
+              <View style={styles.selectedInstallmentSplitContainer}>
+                <Text style={styles.detailText}>
+                  {index + 1} installment payment
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text>{installment}</Text>
+                  <TouchableOpacity style={styles.buttonContainer}>
+                    <Text style={styles.buttonText}>Edit</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ))}
           </View>
-        </View>
+        )}
       </View>
 
       {isClicked ? (
-        <DropdownDetail
+        <Dropdown
           handleSelected={handleSelectedOption}
           selectedItem={selectedItem}
           options={options}

@@ -58,7 +58,10 @@ const PaymentStructure = ({
         {selectedItem && (
           <View style={{ gap: 6 }}>
             {selectedBreakdown?.map((installment, index) => (
-              <View style={styles.selectedInstallmentSplitContainer}>
+              <View
+                style={styles.selectedInstallmentSplitContainer}
+                key={installment}
+              >
                 <Text style={styles.detailText}>
                   {index + 1} installment payment
                 </Text>

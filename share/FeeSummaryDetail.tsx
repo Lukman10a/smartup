@@ -5,10 +5,14 @@ import FeeSummaryRow from "./FeeSummaryRow";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
+interface SelectedOptions {
+  [key: string]: string;
+}
+
 const FeeSummaryDetail = ({ total }: { total?: boolean }) => {
   const selectedOptions = useSelector(
     (state: RootState) => state.selectedOptions
-  );
+  ) as SelectedOptions;
 
   function isOdd(number: number) {
     return number % 2 !== 0;

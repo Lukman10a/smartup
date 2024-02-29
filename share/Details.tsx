@@ -2,14 +2,18 @@ import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 import DropdownDetail from "./DropdownDetail";
+import { useDispatch } from "react-redux";
+import { selectOption } from "@/redux/selectedOptionsSlice";
 
 const Details = ({ title, options }: { title: string; options: string[] }) => {
   const [data, setData] = useState(title);
   const [isClicked, setIsClicked] = useState(false);
   const [selectedItem, setSelectedItem] = useState<null | string>(null);
+  const dispatch = useDispatch();
 
-  const handleSelectedOption = (item: any) => {
+  const handleSelectedOption = (item: string) => {
     setSelectedItem(item);
+    dispatch(selectOption({ title, option: item }));
     setIsClicked(!isClicked);
     console.log({ options, item, title });
   };

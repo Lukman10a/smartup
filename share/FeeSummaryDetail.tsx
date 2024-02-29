@@ -2,19 +2,29 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { hp } from "@/utils/dimensions";
 import FeeSummaryRow from "./FeeSummaryRow";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const FeeSummaryDetail = ({ total }: { total?: boolean }) => {
+  const selectedOptions = useSelector(
+    (state: RootState) => state.selectedOptions
+  );
+
+  function isOdd(number: number) {
+    return number % 2 !== 0;
+  }
+
   return (
     <View style={styles.container}>
-      <FeeSummaryRow title="Fee type" selected="Tuition fee" bgColor={true} />
-      <FeeSummaryRow title="Class" selected="J.S.S. 3" />
-      <FeeSummaryRow title="Session" selected="2023/2024" bgColor={true} />
-      <FeeSummaryRow title="Session" selected="Third term" />
-      <FeeSummaryRow
-        title="One-time payment"
-        selected="₦30,000.00"
-        bgColor={true}
-      />
+      {Object.entries(selectedOptions).map(([title, option], index) => (
+        <FeeSummaryRow
+          key={title}
+          title={title}
+          selected={option}
+          bgColor={isOdd(index + 1)}
+        />
+      ))}
+
       {total && <FeeSummaryRow title="VAT" selected="₦1,500.00" />}
       {total && (
         <FeeSummaryRow

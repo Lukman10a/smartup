@@ -31,9 +31,9 @@ export default function DropdownDetail({
 
 const styles = StyleSheet.create({
   dropDownDetailContainer: {
-    position: "absolute",
+    // position: "absolute",
     zIndex: 3,
-    top: 50,
+    // top: 50,
     width: "100%",
     borderWidth: 1,
     borderColor: "red",

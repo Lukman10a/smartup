@@ -2,10 +2,13 @@ import React, { FC, ReactElement, useRef, useState } from "react";
 import {
   FlatList,
   Modal,
+  StyleProp,
   StyleSheet,
   Text,
+  TextStyle,
   TouchableOpacity,
   View,
+  ViewStyle,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { hp } from "@/utils/dimensions";
@@ -14,9 +17,19 @@ interface Props {
   label: string;
   data: Array<{ label: string; value: string }>;
   onSelect: (item: { label: string; value: string }) => void;
+  containerStyle?: StyleProp<ViewStyle>;
+  labelStyle?: StyleProp<TextStyle>;
+  iconName?: any;
 }
 
-const Dropdown: FC<Props> = ({ label, data, onSelect }) => {
+const Dropdown: FC<Props> = ({
+  label,
+  data,
+  onSelect,
+  labelStyle,
+  containerStyle,
+  iconName,
+}) => {
   const [visible, setVisible] = useState(false);
   const dropdownButtonRef = useRef<TouchableOpacity>(null);
   const [dropdownTop, setDropdownTop] = useState(0);
@@ -77,13 +90,17 @@ const Dropdown: FC<Props> = ({ label, data, onSelect }) => {
 
   return (
     <TouchableOpacity
-      style={styles.button}
+      style={[styles.button, containerStyle]}
       onPress={toggleDropdown}
       ref={dropdownButtonRef}
     >
       {renderDropdown()}
-      <Text style={styles.buttonText}>{label}</Text>
-      <Ionicons name="chevron-forward-outline" size={20} color="black" />
+      <Text style={[styles.buttonText, labelStyle]}>{label}</Text>
+      <Ionicons
+        name={iconName ? iconName : "chevron-forward-outline"}
+        size={20}
+        color="black"
+      />
     </TouchableOpacity>
   );
 };

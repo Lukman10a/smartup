@@ -9,10 +9,10 @@ const Stack = createStackNavigator();
 const FeeStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="InstitutionPage" component={InstitutionPage} />
       <Stack.Screen name="FeeSelection" component={FeeSelection} />
       <Stack.Screen name="FeeSummary" component={FeeSummary} />
       <Stack.Screen name="FeeCheckout" component={FeeCheckout} />
-      <Stack.Screen name="InstitutionPage" component={InstitutionPage} />
     </Stack.Navigator>
   );
 };

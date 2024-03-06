@@ -9,10 +9,10 @@ import SecondaryCta from "@/share/SecondaryCta";
 import { hp } from "@/utils/dimensions";
 
 export default function FeeCheckout() {
-  const navigation = useNavigation<FeeScreenNavigationProp>();
+  const navigation = useNavigation<InstitutionNavigationProp>();
 
   const handlePress = () => {
-    return navigation.navigate("FeeSummary");
+    return navigation.navigate("InstitutionPage");
   };
   return (
     <SafeAreaView style={styles.container}>

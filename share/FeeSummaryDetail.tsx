@@ -28,7 +28,6 @@ const FeeSummaryDetail = ({ total }: { total?: boolean }) => {
           bgColor={isOdd(index + 1)}
         />
       ))}
-
       {total && <FeeSummaryRow title="VAT" selected="₦1,500.00" />}
       {total && (
         <FeeSummaryRow

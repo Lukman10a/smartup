@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Notes from "@/share/Notes";
 import TuitionContainer from "@/share/TuitionContainer";
 import DETAILS_DATA from "@/data";
@@ -9,6 +9,7 @@ import Button from "@/share/Button";
 import { useNavigation } from "@react-navigation/native";
 import { hp } from "@/utils/dimensions";
 import PaymentStructure from "@/share/paymentStructure";
+import { Picker } from "@react-native-picker/picker";
 
 export interface Installment {
   type: number;
@@ -45,6 +46,7 @@ const details = DETAILS_DATA.map((item) => (
 ));
 
 const FeeSelection = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState();
   const navigation = useNavigation<FeeScreenNavigationProp>();
 
   const handlePress = () => {
@@ -65,6 +67,17 @@ const FeeSelection = () => {
           title={payment.title}
           options={payment.installments}
         />
+        {/* <Picker
+          mode="dropdown"
+          
+          selectedValue={selectedLanguage}
+          onValueChange={(itemValue, itemIndex) =>
+            setSelectedLanguage(itemValue)
+          }
+        >
+          <Picker.Item label="Java" value="java" />
+          <Picker.Item label="JavaScript" value="js" />
+        </Picker> */}
         <Notes />
         <Button handlePress={handlePress} />
       </ScrollView>

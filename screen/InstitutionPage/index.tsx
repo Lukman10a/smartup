@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -13,6 +13,9 @@ import Dropdown from "@/share/drop";
 import TableOne from "@/share/Table";
 
 export default function InstitutionPage() {
+  const [tableType, setTableType] = useState<"completed" | "outstanding">(
+    "completed"
+  );
   return (
     <View style={styles.container}>
       <View
@@ -43,11 +46,41 @@ export default function InstitutionPage() {
       </View>
       <View style={{ paddingHorizontal: 10 }}>
         <View style={styles.paymentButtonContainer}>
-          <TouchableOpacity style={styles.leftButtonContainer}>
-            <Text style={styles.leftButtonText}>Completed payments</Text>
+          <TouchableOpacity
+            style={
+              tableType === "completed"
+                ? styles.activeButtonContainer
+                : styles.tabButtonContainer
+            }
+            onPress={() => setTableType("completed")}
+          >
+            <Text
+              style={
+                tableType === "completed"
+                  ? styles.activeTabButtonText
+                  : styles.tabButtonText
+              }
+            >
+              Completed payments
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.rightButtonContainer}>
-            <Text style={styles.rightButtonText}>Outstanding payments</Text>
+          <TouchableOpacity
+            style={
+              tableType === "outstanding"
+                ? styles.activeButtonContainer
+                : styles.tabButtonContainer
+            }
+            onPress={() => setTableType("outstanding")}
+          >
+            <Text
+              style={
+                tableType === "outstanding"
+                  ? styles.activeTabButtonText
+                  : styles.tabButtonText
+              }
+            >
+              Outstanding payments
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={{ flexDirection: "row", marginTop: 10, gap: 20 }}>
@@ -88,7 +121,7 @@ export default function InstitutionPage() {
           />
         </View>
       </View>
-      <TableOne />
+      <TableOne showOptions={tableType === "outstanding" && true} />
     </View>
   );
 }
@@ -105,24 +138,24 @@ const styles = StyleSheet.create({
     paddingTop: hp(40),
     paddingHorizontal: hp(20),
   },
-  leftButtonContainer: {
+  activeButtonContainer: {
     backgroundColor: "#DC3500",
     padding: hp(20),
     borderTopEndRadius: 10,
     borderTopStartRadius: 10,
-    borderBottomWidth: 3,
+    borderBottomWidth: 2,
     borderBottomColor: "#DC3500",
   },
-  leftButtonText: {
+  activeTabButtonText: {
     color: "#ffff",
   },
-  rightButtonContainer: {
+  tabButtonContainer: {
     paddingHorizontal: 25,
     padding: hp(20),
-    borderBottomWidth: 3,
+    borderBottomWidth: 2,
     borderBottomColor: "#DC3500",
   },
-  rightButtonText: {
+  tabButtonText: {
     color: "#BEBEBE",
   },
 });

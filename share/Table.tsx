@@ -69,6 +69,32 @@ const data = [
     date: "18-11-2024",
   },
 ];
+
+const TableHeader = () => (
+  <View style={styles.tableRow}>
+    <View style={{ alignItems: "flex-start" }}>
+      <Text style={{ fontSize: hp(16), color: "black", fontWeight: "500" }}>
+        Id
+      </Text>
+    </View>
+    <View style={{ alignItems: "flex-start" }}>
+      <Text style={{ fontSize: hp(16), color: "black", fontWeight: "500" }}>
+        Student name
+      </Text>
+    </View>
+    <View style={{ alignItems: "flex-start" }}>
+      <Text style={{ fontSize: hp(16), color: "black", fontWeight: "500" }}>
+        Amount
+      </Text>
+    </View>
+    <View style={{ alignItems: "flex-start" }}>
+      <Text style={{ fontSize: hp(16), color: "black", fontWeight: "500" }}>
+        Date
+      </Text>
+    </View>
+  </View>
+);
+
 const TableOne = () => {
   const item = ({ item }: { item: any }) => (
     <View style={styles.tableRow}>
@@ -99,28 +125,7 @@ const TableOne = () => {
         padding: 10,
       }}
     >
-      <View style={styles.tableRow}>
-        <View style={{ alignItems: "flex-start" }}>
-          <Text style={{ fontSize: hp(16), color: "black", fontWeight: "500" }}>
-            Id
-          </Text>
-        </View>
-        <View style={{ alignItems: "flex-start" }}>
-          <Text style={{ fontSize: hp(16), color: "black", fontWeight: "500" }}>
-            Student name
-          </Text>
-        </View>
-        <View style={{ alignItems: "flex-start" }}>
-          <Text style={{ fontSize: hp(16), color: "black", fontWeight: "500" }}>
-            Amount
-          </Text>
-        </View>
-        <View style={{ alignItems: "flex-start" }}>
-          <Text style={{ fontSize: hp(16), color: "black", fontWeight: "500" }}>
-            Date
-          </Text>
-        </View>
-      </View>
+      <TableHeader />
       <FlatList
         style={{}}
         showsVerticalScrollIndicator={false}

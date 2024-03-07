@@ -16,6 +16,7 @@ export default function InstitutionPage() {
   const [tableType, setTableType] = useState<"completed" | "outstanding">(
     "completed"
   );
+
   return (
     <View style={styles.container}>
       <View

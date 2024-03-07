@@ -4,18 +4,18 @@ import { NavigationContainer } from "@react-navigation/native";
 import FeeStack from "./navigation/fee";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-import StudentPayment from "./screen/StudentPayment";
-import PaymentStack from "./navigation/payment";
+import ActionModal from "./screen/Modal/ActionModal";
+import ReminderModal from "./screen/Modal/ReminderModal";
 
 export default function App() {
   return (
     <NavigationContainer>
       <StatusBar style="auto" />
-      <Provider store={store}>
+      {/* <ActionModal /> */}
+      <ReminderModal />
+      {/* <Provider store={store}>
         <FeeStack />
-        {/* <PaymentStack /> */}
-        {/* <StudentPayment /> */}
-      </Provider>
+      </Provider> */}
     </NavigationContainer>
   );
 }

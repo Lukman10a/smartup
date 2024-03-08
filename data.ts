@@ -70,6 +70,7 @@ export const PAYMENT_DETAILS = [
     price: "₦20,000.00",
   },
 ];
+<<<<<<< HEAD
 
 export const COMPLETED_PAYMENT = [
   {
@@ -139,3 +140,5 @@ export const COMPLETED_PAYMENT = [
     date: "18-11-2024",
   },
 ];
+=======
+>>>>>>> fcaba10 (create the student payment component)

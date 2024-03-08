@@ -19,11 +19,19 @@ export default function PaymentDetail({
     <View style={styles.paymentDetailContainer}>
       <View style={styles.titleDetail}>
         <Text style={styles.title}>{title}</Text>
+<<<<<<< HEAD
         <Checkbox.Android
+=======
+        <Checkbox
+>>>>>>> fcaba10 (create the student payment component)
           status={isSelected ? "checked" : "unchecked"}
           onPress={onSelect}
         />
       </View>
+<<<<<<< HEAD
+=======
+
+>>>>>>> fcaba10 (create the student payment component)
       <View style={styles.titleDetail}>
         <Text style={styles.price}>{price}</Text>
         <TouchableOpacity style={styles.pay}>

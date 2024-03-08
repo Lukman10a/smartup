@@ -27,3 +27,46 @@ const DETAILS_DATA = [
 ];
 
 export default DETAILS_DATA;
+
+export const PAYMENT_DETAILS = [
+  {
+    id: 1,
+    title: "Tuition fee",
+    price: "₦30,000.00",
+  },
+  {
+    id: 2,
+    title: "Extra lesson fee",
+    price: "₦30,000.00",
+  },
+  {
+    id: 3,
+    title: "Online lesson fee",
+    price: "₦30,000.00",
+  },
+  {
+    id: 4,
+    title: "W.A.E.C fee",
+    price: "₦30,000.00",
+  },
+  {
+    id: 5,
+    title: "Graduation fee",
+    price: "₦20,000.00",
+  },
+  {
+    id: 6,
+    title: "Graduation fee",
+    price: "₦20,000.00",
+  },
+  {
+    id: 7,
+    title: "Graduation fee",
+    price: "₦20,000.00",
+  },
+  {
+    id: 8,
+    title: "Graduation fee",
+    price: "₦20,000.00",
+  },
+];

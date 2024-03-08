@@ -3,6 +3,9 @@ declare type FeeStackNavigatorParamList = {
   FeeSummary: undefined;
   FeeCheckout: undefined;
 };
+declare type PaymentStackNavigatorParamList = {
+  FeeSummary: undefined;
+};
 
 declare type AuthStackNavigatorParamList = {
   Welcome: undefined;
@@ -15,3 +18,6 @@ declare type AuthStackNavigatorParamList = {
 
 declare type FeeScreenNavigationProp =
   NativeStackNavigationProp<FeeStackNavigatorParamList>;
+
+declare type PaymentStackNavigationProp =
+  NativeStackNavigationProp<PaymentStackNavigatorParamList>;

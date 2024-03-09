@@ -13,7 +13,6 @@ import Button from "@/share/Button";
 import { PAYMENT_DETAILS } from "@/data";
 import TableButton from "@/share/TableButton";
 import { useNavigation } from "@react-navigation/native";
-<<<<<<< HEAD
 import { SafeAreaView } from "react-native-safe-area-context";
 import AppDataTable from "@/share/DataTable";
 
@@ -21,10 +20,6 @@ export default function StudentPayment() {
   const [tableType, setTableType] = useState<
     "Pending payments" | "Payment history"
   >("Pending payments");
-=======
-
-export default function StudentPayment() {
->>>>>>> 48a024e (made some changes)
   const navigation = useNavigation<PaymentStackNavigationProp>();
   const [selectedPayments, setSelectedPayments] = useState(
     PAYMENT_DETAILS.map(() => false)
@@ -57,7 +52,6 @@ export default function StudentPayment() {
   const isPayAllActive = selectedPayments.some((selected) => selected);
 
   return (
-<<<<<<< HEAD
     <SafeAreaView style={styles.container}>
       <View style={styles.bgImageContainer}>
         <ImageBackground
@@ -107,45 +101,12 @@ export default function StudentPayment() {
         </View>
       )}
     </SafeAreaView>
-=======
-    <View style={styles.container}>
-      <View style={styles.bgImageContainer}>
-        <ImageBackground
-          source={require("assets/pay_bg.png")}
-          resizeMode="cover"
-          style={styles.bgImage}
-        ></ImageBackground>
-      </View>
-      <Image
-        source={require("@/assets/profile.png")}
-        style={styles.profileImg}
-      />
-      <View style={styles.title}>
-        <Text style={{ fontSize: 18, fontWeight: "600" }}>OGUNSEGBE TOSIN</Text>
-        <Text>J.S.S. 1</Text>
-      </View>
-      <TableButton />
-      <ScrollView style={{}} showsVerticalScrollIndicator={false}>
-        {paymentDetails}
-      </ScrollView>
-
-      <View style={{ paddingHorizontal: 20, marginVertical: 30 }}>
-        <Button
-          text="Pay All"
-          handlePress={handlePayment}
-          disabled={!isPayAllActive}
-          color={isPayAllActive ? "#DB3A07" : "#DB3A0766"}
-        />
-      </View>
-    </View>
->>>>>>> 48a024e (made some changes)
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-<<<<<<< HEAD
     backgroundColor: "white",
   },
   bgImageContainer: { marginBottom: hp(22) },
@@ -162,20 +123,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: hp(27),
     gap: hp(7),
-=======
-  },
-  bgImageContainer: {},
-  bgImage: {
-    height: hp(125),
-  },
-  profileImg: {
-    position: "absolute",
-    top: 108,
-    left: 180,
-  },
-  title: {
-    alignItems: "center",
-    marginTop: 22,
->>>>>>> 48a024e (made some changes)
   },
 });

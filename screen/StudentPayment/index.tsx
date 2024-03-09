@@ -80,7 +80,7 @@ export default function StudentPayment() {
         setTableType={setTableType}
       />
       {tableType === "Pending payments" && (
-        <View>
+        <View style={{ flex: 1 }}>
           <ScrollView style={{}} showsVerticalScrollIndicator={false}>
             {paymentDetails}
           </ScrollView>

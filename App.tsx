@@ -11,12 +11,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <StatusBar style="auto" />
-      {/* <Provider store={store}>
+      <Provider store={store}>
         <FeeStack />
-      </Provider> */}
-      <PaymentStack />
-
-      {/* <StudentPayment /> */}
+        {/* <PaymentStack /> */}
+        {/* <StudentPayment /> */}
+      </Provider>
     </NavigationContainer>
   );
 }

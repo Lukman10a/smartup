@@ -54,11 +54,12 @@ export default function StudentPayment() {
           resizeMode="cover"
           style={styles.bgImage}
         ></ImageBackground>
+        <Image
+          source={require("@/assets/profile.png")}
+          style={styles.profileImg}
+        />
       </View>
-      <Image
-        source={require("@/assets/profile.png")}
-        style={styles.profileImg}
-      />
+
       <View style={styles.title}>
         <Text style={{ fontSize: 18, fontWeight: "600" }}>OGUNSEGBE TOSIN</Text>
         <Text>J.S.S. 1</Text>
@@ -84,17 +85,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  bgImageContainer: {},
+  bgImageContainer: { marginBottom: hp(22) },
   bgImage: {
     height: hp(125),
+    position: "relative",
   },
   profileImg: {
     position: "absolute",
-    top: 108,
-    left: 180,
+    top: hp(108),
+    left: "45%",
   },
   title: {
     alignItems: "center",
-    marginTop: 22,
+    marginTop: hp(22),
   },
 });

@@ -11,6 +11,7 @@ import {
 import { hp } from "@/utils/dimensions";
 import Dropdown from "@/share/drop";
 import TableOne from "@/share/Table";
+import AppDataTable from "@/share/DataTable";
 
 export default function InstitutionPage() {
   const [tableType, setTableType] = useState<"completed" | "outstanding">(
@@ -18,16 +19,10 @@ export default function InstitutionPage() {
   );
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          height: hp(220),
-          borderBottomEndRadius: hp(30),
-          borderBottomStartRadius: hp(30),
-          overflow: "hidden",
-        }}
-      >
+      <View style={styles.heroContainer}>
+        <View style={styles.overlay} />
         <ImageBackground
-          source={require("assets/bg.png")}
+          source={require("assets/homeBg.png")}
           resizeMode="cover"
           style={{
             height: "100%",
@@ -36,7 +31,9 @@ export default function InstitutionPage() {
           }}
         >
           <Image source={require("assets/badge.png")} />
-          <View style={{ alignItems: "center", marginTop: 10, gap: 5 }}>
+          <View
+            style={{ alignItems: "center", marginTop: 10, gap: 5, zIndex: 2 }}
+          >
             <Text style={{ fontSize: hp(20), fontWeight: "600" }}>
               JOY-MARVY SCHOOL
             </Text>
@@ -121,7 +118,10 @@ export default function InstitutionPage() {
           />
         </View>
       </View>
-      <TableOne showOptions={tableType === "outstanding" && true} />
+      {/* <TableOne showOptions={tableType === "outstanding" && true} /> */}
+      <View style={{ padding: hp(15), height: "auto", flex: 1 }}>
+        <AppDataTable />
+      </View>
     </View>
   );
 }
@@ -130,6 +130,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#ffff",
+  },
+  heroContainer: {
+    height: hp(220),
+    borderBottomEndRadius: hp(30),
+    borderBottomStartRadius: hp(30),
+    overflow: "hidden",
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(122, 122, 122, 0.361)",
+    zIndex: 1,
   },
   paymentButtonContainer: {
     flexDirection: "row",

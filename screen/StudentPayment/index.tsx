@@ -14,8 +14,12 @@ import { PAYMENT_DETAILS } from "@/data";
 import TableButton from "@/share/TableButton";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import AppDataTable from "@/share/DataTable";
 
 export default function StudentPayment() {
+  const [tableType, setTableType] = useState<
+    "Pending payments" | "Payment history"
+  >("Pending payments");
   const navigation = useNavigation<PaymentStackNavigationProp>();
   const [selectedPayments, setSelectedPayments] = useState(
     PAYMENT_DETAILS.map(() => false)
@@ -67,18 +71,28 @@ export default function StudentPayment() {
         </Text>
         <Text style={{ fontSize: hp(12) }}>J.S.S. 1</Text>
       </View>
-      <TableButton />
-      <ScrollView style={{}} showsVerticalScrollIndicator={false}>
-        {paymentDetails}
-      </ScrollView>
-      <View style={{ paddingHorizontal: hp(20), marginVertical: hp(30) }}>
-        <Button
-          text="Pay All"
-          handlePress={handlePayment}
-          disabled={!isPayAllActive}
-          color={isPayAllActive ? "#DB3A07" : "#DB3A0766"}
-        />
-      </View>
+      <TableButton tableType={tableType} setTableType={setTableType} />
+      {tableType === "Pending payments" && (
+        <View>
+          <ScrollView style={{}} showsVerticalScrollIndicator={false}>
+            {paymentDetails}
+          </ScrollView>
+          <View style={{ paddingHorizontal: hp(20), marginVertical: hp(30) }}>
+            <Button
+              text="Pay All"
+              handlePress={handlePayment}
+              disabled={!isPayAllActive}
+              color={isPayAllActive ? "#DB3A07" : "#DB3A0766"}
+            />
+          </View>
+        </View>
+      )}
+
+      {tableType === "Payment history" && (
+        <View style={{ padding: hp(15), height: "auto", flex: 1 }}>
+          <AppDataTable showOptions={tableType === "Payment history" && true} />
+        </View>
+      )}
     </SafeAreaView>
   );
 }

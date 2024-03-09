@@ -12,8 +12,8 @@ export default function App() {
     <NavigationContainer>
       <StatusBar style="auto" />
       <Provider store={store}>
-        <PaymentStack />
-        {/* <StudentPayment /> */}
+        {/* <PaymentStack /> */}
+        <StudentPayment />
         {/* <FeeStack /> */}
       </Provider>
     </NavigationContainer>

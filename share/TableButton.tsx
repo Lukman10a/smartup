@@ -3,11 +3,13 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { hp } from "@/utils/dimensions";
 import PaymentSummary from "@/screen/PaymentSummary";
 
-export default function TableButton() {
-  const [tableType, setTableType] = useState<
-    "Pending payments" | "Payment history"
-  >("Pending payments");
-
+export default function TableButton({
+  tableType,
+  setTableType,
+}: {
+  tableType: "Pending payments" | "Payment history";
+  setTableType: (type: "Pending payments" | "Payment history") => void;
+}) {
   return (
     <View style={styles.paymentButtonContainer}>
       <TouchableOpacity

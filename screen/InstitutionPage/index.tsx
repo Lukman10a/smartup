@@ -81,7 +81,9 @@ export default function InstitutionPage() {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={{ flexDirection: "row", marginTop: 10, gap: 20 }}>
+        <View
+          style={{ flexDirection: "row", marginVertical: hp(16), gap: hp(20) }}
+        >
           <Dropdown
             label={"2023 / 2024 Academic session"}
             data={[
@@ -96,7 +98,7 @@ export default function InstitutionPage() {
             ]}
             onSelect={() => null}
             iconName={"chevron-down-outline"}
-            labelStyle={{ fontWeight: "400", fontSize: hp(15) }}
+            labelStyle={{ fontWeight: "400", fontSize: hp(12) }}
             containerStyle={{ flex: 2, borderWidth: 1, borderColor: "#E4E4E4" }}
           />
 
@@ -114,14 +116,14 @@ export default function InstitutionPage() {
             ]}
             onSelect={() => null}
             iconName={"chevron-down-outline"}
-            labelStyle={{ fontWeight: "400", fontSize: hp(15) }}
+            labelStyle={{ fontWeight: "400", fontSize: hp(12) }}
             containerStyle={{ flex: 1, borderWidth: 1, borderColor: "#E4E4E4" }}
           />
         </View>
       </View>
       {/* <TableOne showOptions={tableType === "outstanding" && true} /> */}
       <View style={{ padding: hp(15), height: "auto", flex: 1 }}>
-        <AppDataTable />
+        <AppDataTable showOptions={tableType === "outstanding" && true} />
       </View>
     </View>
   );
@@ -147,27 +149,32 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: hp(40),
-    paddingHorizontal: hp(20),
+    marginTop: hp(40),
   },
   activeButtonContainer: {
     backgroundColor: "#DC3500",
     padding: hp(20),
-    borderTopEndRadius: 10,
-    borderTopStartRadius: 10,
+    borderTopEndRadius: hp(10),
+    borderTopStartRadius: hp(10),
     borderBottomWidth: 2,
     borderBottomColor: "#DC3500",
+    flex: 1,
+    alignItems: "center",
   },
   activeTabButtonText: {
     color: "#ffff",
+    fontSize: hp(12),
   },
   tabButtonContainer: {
-    paddingHorizontal: 25,
+    paddingHorizontal: hp(25),
     padding: hp(20),
     borderBottomWidth: 2,
     borderBottomColor: "#DC3500",
+    flex: 1,
+    alignItems: "center",
   },
   tabButtonText: {
     color: "#BEBEBE",
+    fontSize: hp(12),
   },
 });

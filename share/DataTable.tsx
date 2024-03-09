@@ -12,7 +12,13 @@ import { DataTable } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { COMPLETED_PAYMENT } from "@/data";
 
-const AppDataTable = () => {
+const AppDataTable = ({
+  item,
+  showOptions,
+}: {
+  item?: any;
+  showOptions?: boolean;
+}) => {
   const [visible, setVisible] = React.useState(false);
   const dropdownButtonRef = React.useRef<TouchableOpacity>(null);
   const [dropdownTop, setDropdownTop] = React.useState(0);
@@ -82,7 +88,11 @@ const AppDataTable = () => {
         <DataTable.Title textStyle={styles.tableTitle} numeric>
           Due Date
         </DataTable.Title>
-        {/* <DataTable.Title textStyle={styles.tableTitle}> </DataTable.Title> */}
+        {showOptions && (
+          <DataTable.Title textStyle={styles.tableTitle} numeric>
+            {" "}
+          </DataTable.Title>
+        )}
       </DataTable.Header>
 
       <FlatList
@@ -90,22 +100,16 @@ const AppDataTable = () => {
         data={items}
         renderItem={({ item }) => (
           <DataTable.Row key={item.id} style={{ gap: 30 }}>
-            <DataTable.Cell textStyle={{ fontSize: hp(16), color: "#7a8289" }}>
+            <DataTable.Cell textStyle={styles.rowText}>
               {item.id}
             </DataTable.Cell>
             <DataTable.Cell>
-              <Text
-                numberOfLines={1}
-                style={{ fontSize: hp(16), color: "#7a8289" }}
-              >
+              <Text numberOfLines={1} style={styles.rowText}>
                 {item.name}
               </Text>
             </DataTable.Cell>
             <DataTable.Cell numeric>
-              <Text
-                numberOfLines={1}
-                style={{ fontSize: hp(16), color: "#7a8289" }}
-              >
+              <Text numberOfLines={1} style={styles.rowText}>
                 {item.amount}
               </Text>
             </DataTable.Cell>
@@ -113,27 +117,31 @@ const AppDataTable = () => {
               numeric
               //   style={{ flexDirection: "row", alignItems: "center" }}
             >
-              <Text style={{ fontSize: hp(16), color: "#7a8289" }}>
-                {item.date}
-              </Text>
+              <Text style={styles.rowText}>{item.date}</Text>
             </DataTable.Cell>
-            {/* <DataTable.Cell style={{ position: "relative" }}>
-              <View>
-                <TouchableOpacity
-                  style={{
-                    alignItems: "flex-start",
-                    padding: 5,
-                    width: "auto",
-                    position: "relative",
-                  }}
-                  onPress={toggleDropdown}
-                  ref={dropdownButtonRef}
-                >
-                  {renderDropdown()}
-                  <Ionicons name="ellipsis-vertical" size={24} color="black" />
-                </TouchableOpacity>
-              </View>
-            </DataTable.Cell> */}
+            {showOptions && (
+              <DataTable.Cell style={{ position: "relative" }} numeric>
+                <View>
+                  <TouchableOpacity
+                    style={{
+                      alignItems: "flex-start",
+                      padding: 5,
+                      width: "auto",
+                      position: "relative",
+                    }}
+                    onPress={toggleDropdown}
+                    ref={dropdownButtonRef}
+                  >
+                    {renderDropdown()}
+                    <Ionicons
+                      name="ellipsis-vertical"
+                      size={18}
+                      color="#202020"
+                    />
+                  </TouchableOpacity>
+                </View>
+              </DataTable.Cell>
+            )}
           </DataTable.Row>
         )}
         keyExtractor={(item) => item.id.toString()}
@@ -164,7 +172,8 @@ const styles = StyleSheet.create({
     borderRadius: hp(10),
     padding: hp(10),
   },
-  tableTitle: { fontSize: hp(16), color: "black", fontWeight: "500" },
+  tableTitle: { fontSize: hp(10), color: "black", fontWeight: "500" },
+  rowText: { fontSize: hp(10), color: "#7a8289" },
   overlay: {
     width: "100%",
     alignItems: "center",

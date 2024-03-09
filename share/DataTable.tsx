@@ -7,6 +7,7 @@ import {
   View,
   Text,
   StyleSheet,
+  Dimensions,
 } from "react-native";
 import { DataTable } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
@@ -24,6 +25,8 @@ const AppDataTable = ({
   const [dropdownTop, setDropdownTop] = React.useState(0);
   const [dropdownRight, setDropdownRight] = React.useState(0);
   const [selected, setSelected] = React.useState(undefined);
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
 
   const [page, setPage] = React.useState<number>(0);
   const [numberOfItemsPerPageList] = React.useState([2, 3, 4]);
@@ -47,7 +50,7 @@ const AppDataTable = ({
   const openDropdown = (): void => {
     dropdownButtonRef.current?.measure((_fx, _fy, _w, h, _px, py) => {
       setDropdownTop(py + h);
-      setDropdownRight(_px - (_w + 50));
+      setDropdownRight(_px - _w);
     });
     setVisible(true);
   };
@@ -55,6 +58,7 @@ const AppDataTable = ({
   const renderDropdown = (): React.ReactElement<any, any> => {
     return (
       <Modal
+        style={{ flex: 1, position: "relative" }}
         visible={visible}
         transparent
         animationType="fade"
@@ -131,6 +135,11 @@ const AppDataTable = ({
                     }}
                     onPress={toggleDropdown}
                     ref={dropdownButtonRef}
+                    // onLayout={(event) => {
+                    //   const { x, y, width, height } = event.nativeEvent.layout;
+                    //   setDropdownTop(y + height);
+                    //   setDropdownRight(windowWidth - (x + width));
+                    // }}
                   >
                     {renderDropdown()}
                     <Ionicons

@@ -156,18 +156,32 @@ const AppDataTable = () => {
         data={items}
         renderItem={({ item }) => (
           <DataTable.Row key={item.id} style={{ gap: 30 }}>
-            <DataTable.Cell>{item.id}</DataTable.Cell>
+            <DataTable.Cell textStyle={{ fontSize: hp(16), color: "#7a8289" }}>
+              {item.id}
+            </DataTable.Cell>
             <DataTable.Cell>
-              <Text numberOfLines={1}>{item.name}</Text>
+              <Text
+                numberOfLines={1}
+                style={{ fontSize: hp(16), color: "#7a8289" }}
+              >
+                {item.name}
+              </Text>
             </DataTable.Cell>
             <DataTable.Cell numeric>
-              <Text numberOfLines={1}>{item.amount}</Text>
+              <Text
+                numberOfLines={1}
+                style={{ fontSize: hp(16), color: "#7a8289" }}
+              >
+                {item.amount}
+              </Text>
             </DataTable.Cell>
             <DataTable.Cell
               numeric
               //   style={{ flexDirection: "row", alignItems: "center" }}
             >
-              <Text>{item.date}</Text>
+              <Text style={{ fontSize: hp(16), color: "#7a8289" }}>
+                {item.date}
+              </Text>
             </DataTable.Cell>
             {/* <DataTable.Cell style={{ position: "relative" }}>
               <View>

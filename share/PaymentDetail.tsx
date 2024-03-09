@@ -1,3 +1,4 @@
+import { hp } from "@/utils/dimensions";
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Checkbox } from "react-native-paper";
@@ -19,19 +20,12 @@ export default function PaymentDetail({
     <View style={styles.paymentDetailContainer}>
       <View style={styles.titleDetail}>
         <Text style={styles.title}>{title}</Text>
-<<<<<<< HEAD
         <Checkbox.Android
-=======
-        <Checkbox
->>>>>>> fcaba10 (create the student payment component)
+          color="black"
           status={isSelected ? "checked" : "unchecked"}
           onPress={onSelect}
         />
       </View>
-<<<<<<< HEAD
-=======
-
->>>>>>> fcaba10 (create the student payment component)
       <View style={styles.titleDetail}>
         <Text style={styles.price}>{price}</Text>
         <TouchableOpacity style={styles.pay}>
@@ -46,10 +40,10 @@ const styles = StyleSheet.create({
   paymentDetailContainer: {
     backgroundColor: "#F9F9F9",
     borderRadius: 8,
-    padding: 10,
-    margin: 20,
-    marginVertical: 10,
-    gap: 14,
+    padding: hp(10),
+    margin: hp(20),
+    marginVertical: hp(10),
+    gap: hp(14),
   },
   titleDetail: {
     flexDirection: "row",
@@ -57,17 +51,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 14,
+    fontSize: hp(14),
     color: "#93999E",
   },
   price: {
-    fontSize: 20,
-    fontWeight: "400",
+    fontSize: hp(20),
+    fontWeight: "300",
   },
   pay: {
     backgroundColor: "#DC350026",
-    padding: 10,
-    borderRadius: 10,
+    padding: hp(10),
+    borderRadius: hp(10),
   },
   payButton: {
     color: "#DC3500",

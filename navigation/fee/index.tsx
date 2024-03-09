@@ -2,7 +2,7 @@ import FeeCheckout from "@/screen/FeeCheckout";
 import FeeSelection from "@/screen/FeeSelection";
 import FeeSummary from "@/screen/FeeSummary";
 import InstitutionPage from "@/screen/InstitutionPage";
-import ReminderModal from "@/screen/Modal/ReminderModal";
+import ReminderModal from "@/screen/Modal";
 import { createStackNavigator } from "@react-navigation/stack";
 
 const Stack = createStackNavigator();

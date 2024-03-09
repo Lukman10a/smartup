@@ -13,6 +13,7 @@ import Button from "@/share/Button";
 import { PAYMENT_DETAILS } from "@/data";
 import TableButton from "@/share/TableButton";
 import { useNavigation } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function StudentPayment() {
   const navigation = useNavigation<PaymentStackNavigationProp>();
@@ -47,10 +48,10 @@ export default function StudentPayment() {
   const isPayAllActive = selectedPayments.some((selected) => selected);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.bgImageContainer}>
         <ImageBackground
-          source={require("assets/pay_bg.png")}
+          source={require("assets/pay_bg.jpg")}
           resizeMode="cover"
           style={styles.bgImage}
         ></ImageBackground>
@@ -61,15 +62,16 @@ export default function StudentPayment() {
       </View>
 
       <View style={styles.title}>
-        <Text style={{ fontSize: 18, fontWeight: "600" }}>OGUNSEGBE TOSIN</Text>
-        <Text>J.S.S. 1</Text>
+        <Text style={{ fontSize: hp(18), fontWeight: "600" }}>
+          OGUNSEGBE TOSIN
+        </Text>
+        <Text style={{ fontSize: hp(12) }}>J.S.S. 1</Text>
       </View>
       <TableButton />
       <ScrollView style={{}} showsVerticalScrollIndicator={false}>
         {paymentDetails}
       </ScrollView>
-
-      <View style={{ paddingHorizontal: 20, marginVertical: 30 }}>
+      <View style={{ paddingHorizontal: hp(20), marginVertical: hp(30) }}>
         <Button
           text="Pay All"
           handlePress={handlePayment}
@@ -77,13 +79,14 @@ export default function StudentPayment() {
           color={isPayAllActive ? "#DB3A07" : "#DB3A0766"}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white",
   },
   bgImageContainer: { marginBottom: hp(22) },
   bgImage: {
@@ -97,6 +100,7 @@ const styles = StyleSheet.create({
   },
   title: {
     alignItems: "center",
-    marginTop: hp(22),
+    marginTop: hp(27),
+    gap: hp(7),
   },
 });

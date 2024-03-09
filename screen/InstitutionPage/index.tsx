@@ -12,6 +12,7 @@ import { hp } from "@/utils/dimensions";
 import Dropdown from "@/share/drop";
 import TableOne from "@/share/Table";
 import AppDataTable from "@/share/DataTable";
+import TableButton from "@/share/TableButton";
 
 export default function InstitutionPage() {
   const [tableType, setTableType] = useState<"completed" | "outstanding">(
@@ -42,85 +43,60 @@ export default function InstitutionPage() {
           </View>
         </ImageBackground>
       </View>
-      <View style={{ paddingHorizontal: 10 }}>
-        <View style={styles.paymentButtonContainer}>
-          <TouchableOpacity
-            style={
-              tableType === "completed"
-                ? styles.activeButtonContainer
-                : styles.tabButtonContainer
-            }
-            onPress={() => setTableType("completed")}
-          >
-            <Text
-              style={
-                tableType === "completed"
-                  ? styles.activeTabButtonText
-                  : styles.tabButtonText
-              }
-            >
-              Completed payments
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={
-              tableType === "outstanding"
-                ? styles.activeButtonContainer
-                : styles.tabButtonContainer
-            }
-            onPress={() => setTableType("outstanding")}
-          >
-            <Text
-              style={
-                tableType === "outstanding"
-                  ? styles.activeTabButtonText
-                  : styles.tabButtonText
-              }
-            >
-              Outstanding payments
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{ flexDirection: "row", marginVertical: hp(16), gap: hp(20) }}
-        >
-          <Dropdown
-            label={"2023 / 2024 Academic session"}
-            data={[
-              {
-                label: "2022 / 2023 Academic session",
-                value: "2022 / 2023 Academic session",
-              },
-              {
-                label: "2023 / 2024 Academic session",
-                value: "2023 / 2024 Academic session",
-              },
-            ]}
-            onSelect={() => null}
-            iconName={"chevron-down-outline"}
-            labelStyle={{ fontWeight: "400", fontSize: hp(12) }}
-            containerStyle={{ flex: 2, borderWidth: 1, borderColor: "#E4E4E4" }}
-          />
+      <TableButton
+        tableTypes={[
+          { type: "completed", label: "Completed Payments" },
+          { type: "outstanding", label: "Pending Paymnets" },
+        ]}
+        activeTableType={tableType}
+        setTableType={setTableType}
+      />
 
-          <Dropdown
-            label={"Term"}
-            data={[
-              {
-                label: "2rd Term",
-                value: "2rd Term",
-              },
-              {
-                label: "3rd Term",
-                value: "3rd Term",
-              },
-            ]}
-            onSelect={() => null}
-            iconName={"chevron-down-outline"}
-            labelStyle={{ fontWeight: "400", fontSize: hp(12) }}
-            containerStyle={{ flex: 1, borderWidth: 1, borderColor: "#E4E4E4" }}
-          />
-        </View>
+      <View
+        style={{
+          flexDirection: "row",
+          marginBottom: hp(16),
+          gap: hp(20),
+          paddingHorizontal: 10,
+        }}
+      >
+        <Dropdown
+          label={"2023 / 2024 Academic session"}
+          data={[
+            {
+              label: "2022 / 2023 Academic session",
+              value: "2022 / 2023 Academic session",
+            },
+            {
+              label: "2023 / 2024 Academic session",
+              value: "2023 / 2024 Academic session",
+            },
+          ]}
+          onSelect={() => null}
+          iconName={"chevron-down-outline"}
+          labelStyle={{ fontWeight: "400", fontSize: hp(12) }}
+          containerStyle={{ flex: 2, borderWidth: 1, borderColor: "#E4E4E4" }}
+        />
+
+        <Dropdown
+          label={"Term"}
+          data={[
+            {
+              label: "2rd Term",
+              value: "2rd Term",
+            },
+            {
+              label: "3rd Term",
+              value: "3rd Term",
+            },
+          ]}
+          onSelect={() => null}
+          iconName={"chevron-down-outline"}
+          labelStyle={{ fontWeight: "400", fontSize: hp(12) }}
+          containerStyle={{ flex: 1, borderWidth: 1, borderColor: "#E4E4E4" }}
+        />
       </View>
+
       {/* <TableOne showOptions={tableType === "outstanding" && true} /> */}
       <View style={{ padding: hp(15), height: "auto", flex: 1 }}>
         <AppDataTable showOptions={tableType === "outstanding" && true} />

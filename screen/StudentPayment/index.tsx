@@ -71,7 +71,14 @@ export default function StudentPayment() {
         </Text>
         <Text style={{ fontSize: hp(12) }}>J.S.S. 1</Text>
       </View>
-      <TableButton tableType={tableType} setTableType={setTableType} />
+      <TableButton
+        tableTypes={[
+          { type: "Pending payments", label: "Pending payments" },
+          { type: "Payment history", label: "Payment history" },
+        ]}
+        activeTableType={tableType}
+        setTableType={setTableType}
+      />
       {tableType === "Pending payments" && (
         <View>
           <ScrollView style={{}} showsVerticalScrollIndicator={false}>

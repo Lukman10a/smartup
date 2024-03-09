@@ -1,53 +1,44 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { hp } from "@/utils/dimensions";
 import PaymentSummary from "@/screen/PaymentSummary";
 
-export default function TableButton({
-  tableType,
+type TableType = string;
+
+interface TableButtonProps<T extends TableType> {
+  tableTypes: { type: T; label: string }[];
+  activeTableType: T;
+  setTableType: (type: T) => void;
+}
+
+export default function TableButton<T extends TableType>({
+  tableTypes,
+  activeTableType,
   setTableType,
-}: {
-  tableType: "Pending payments" | "Payment history";
-  setTableType: (type: "Pending payments" | "Payment history") => void;
-}) {
+}: TableButtonProps<T>) {
   return (
     <View style={styles.paymentButtonContainer}>
-      <TouchableOpacity
-        style={
-          tableType === "Pending payments"
-            ? styles.activeButtonContainer
-            : styles.tabButtonContainer
-        }
-        onPress={() => setTableType("Pending payments")}
-      >
-        <Text
+      {tableTypes.map((item) => (
+        <TouchableOpacity
+          key={item.type}
           style={
-            tableType === "Pending payments"
-              ? styles.activeTabButtonText
-              : styles.tabButtonText
+            activeTableType === item.type
+              ? styles.activeButtonContainer
+              : styles.tabButtonContainer
           }
+          onPress={() => setTableType(item.type)}
         >
-          Pending payments
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={
-          tableType === "Payment history"
-            ? styles.activeButtonContainer
-            : styles.tabButtonContainer
-        }
-        onPress={() => setTableType("Payment history")}
-      >
-        <Text
-          style={
-            tableType === "Payment history"
-              ? styles.activeTabButtonText
-              : styles.tabButtonText
-          }
-        >
-          Payment history
-        </Text>
-      </TouchableOpacity>
+          <Text
+            style={
+              activeTableType === item.type
+                ? styles.activeTabButtonText
+                : styles.tabButtonText
+            }
+          >
+            {item.label}
+          </Text>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 }

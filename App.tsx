@@ -13,8 +13,8 @@ export default function App() {
       <StatusBar style="auto" />
       <Provider store={store}>
         {/* <PaymentStack /> */}
-        <StudentPayment />
-        {/* <FeeStack /> */}
+        {/* <StudentPayment /> */}
+        <FeeStack />
       </Provider>
     </NavigationContainer>
   );

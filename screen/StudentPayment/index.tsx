@@ -54,20 +54,12 @@ export default function StudentPayment() {
           resizeMode="cover"
           style={styles.bgImage}
         ></ImageBackground>
-<<<<<<< HEAD
         <Image
           source={require("@/assets/profile.png")}
           style={styles.profileImg}
         />
       </View>
 
-=======
-      </View>
-      <Image
-        source={require("@/assets/profile.png")}
-        style={styles.profileImg}
-      />
->>>>>>> fcaba10 (create the student payment component)
       <View style={styles.title}>
         <Text style={{ fontSize: 18, fontWeight: "600" }}>OGUNSEGBE TOSIN</Text>
         <Text>J.S.S. 1</Text>
@@ -93,7 +85,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-<<<<<<< HEAD
   bgImageContainer: { marginBottom: hp(22) },
   bgImage: {
     height: hp(125),
@@ -107,19 +98,5 @@ const styles = StyleSheet.create({
   title: {
     alignItems: "center",
     marginTop: hp(22),
-=======
-  bgImageContainer: {},
-  bgImage: {
-    height: hp(125),
-  },
-  profileImg: {
-    position: "absolute",
-    top: 108,
-    left: 180,
-  },
-  title: {
-    alignItems: "center",
-    marginTop: 22,
->>>>>>> fcaba10 (create the student payment component)
   },
 });

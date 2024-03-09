@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { hp } from "@/utils/dimensions";
@@ -39,6 +40,55 @@ export default function TableButton<T extends TableType>({
           </Text>
         </TouchableOpacity>
       ))}
+=======
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { hp } from "@/utils/dimensions";
+
+export default function TableButton() {
+  const [tableType, setTableType] = useState<
+    "Pending payments" | "Payment history"
+  >("Pending payments");
+
+  return (
+    <View style={styles.paymentButtonContainer}>
+      <TouchableOpacity
+        style={
+          tableType === "Pending payments"
+            ? styles.activeButtonContainer
+            : styles.tabButtonContainer
+        }
+        onPress={() => setTableType("Pending payments")}
+      >
+        <Text
+          style={
+            tableType === "Pending payments"
+              ? styles.activeTabButtonText
+              : styles.tabButtonText
+          }
+        >
+          Pending payments
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={
+          tableType === "Payment history"
+            ? styles.activeButtonContainer
+            : styles.tabButtonContainer
+        }
+        onPress={() => setTableType("Payment history")}
+      >
+        <Text
+          style={
+            tableType === "Payment history"
+              ? styles.activeTabButtonText
+              : styles.tabButtonText
+          }
+        >
+          Payment history
+        </Text>
+      </TouchableOpacity>
+>>>>>>> 48a024e (made some changes)
     </View>
   );
 }
@@ -59,23 +109,35 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 10,
     borderBottomWidth: 2,
     borderBottomColor: "#DC3500",
+<<<<<<< HEAD
     flex: 1,
     alignItems: "center",
   },
   activeTabButtonText: {
     color: "#ffff",
     fontSize: hp(12),
+=======
+  },
+  activeTabButtonText: {
+    color: "#ffff",
+>>>>>>> 48a024e (made some changes)
   },
   tabButtonContainer: {
     paddingHorizontal: hp(34),
     padding: hp(18),
     borderBottomWidth: 2,
     borderBottomColor: "#DC3500",
+<<<<<<< HEAD
     flex: 1,
     alignItems: "center",
   },
   tabButtonText: {
     color: "#BEBEBE",
     fontSize: hp(12),
+=======
+  },
+  tabButtonText: {
+    color: "#BEBEBE",
+>>>>>>> 48a024e (made some changes)
   },
 });

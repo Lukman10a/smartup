@@ -66,17 +66,23 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 10,
     borderBottomWidth: 2,
     borderBottomColor: "#DC3500",
+    flex: 1,
+    alignItems: "center",
   },
   activeTabButtonText: {
     color: "#ffff",
+    fontSize: hp(12),
   },
   tabButtonContainer: {
     paddingHorizontal: hp(34),
     padding: hp(18),
     borderBottomWidth: 2,
     borderBottomColor: "#DC3500",
+    flex: 1,
+    alignItems: "center",
   },
   tabButtonText: {
     color: "#BEBEBE",
+    fontSize: hp(12),
   },
 });

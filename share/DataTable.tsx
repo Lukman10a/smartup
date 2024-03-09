@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { DataTable } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
+import { COMPLETED_PAYMENT } from "@/data";
 
 const AppDataTable = () => {
   const [visible, setVisible] = React.useState(false);
@@ -24,74 +25,7 @@ const AppDataTable = () => {
     numberOfItemsPerPageList[0]
   );
 
-  const [items] = React.useState([
-    {
-      id: 1,
-      name: "Ogunsegbe Tosin",
-      amount: "₦320,000.00",
-      date: "18-11-2024",
-    },
-    {
-      id: 2,
-      name: "Damilare Taiwo",
-      amount: "₦320,000.00",
-      date: "18-11-2024",
-    },
-    {
-      id: 3,
-      name: "Oguntade Demilade",
-      amount: "₦320,000.00",
-      date: "18-11-2024",
-    },
-    {
-      id: 4,
-      name: "Demilade Taiwo",
-      amount: "₦320,000.00",
-      date: "18-11-2024",
-    },
-    {
-      id: 5,
-      name: "Damilare Taiwo",
-      amount: "₦320,000.00",
-      date: "18-11-2024",
-    },
-    {
-      id: 6,
-      name: "Oguntade Demilade",
-      amount: "₦320,000.00",
-      date: "18-11-2024",
-    },
-    {
-      id: 7,
-      name: "Oguntade Demilade",
-      amount: "₦320,000.00",
-      date: "18-11-2024",
-    },
-    {
-      id: 8,
-      name: "Damilare Taiwo",
-      amount: "₦320,000.00",
-      date: "18-11-2024",
-    },
-    {
-      id: 9,
-      name: "Demilade Taiw",
-      amount: "₦320,000.00",
-      date: "18-11-2024",
-    },
-    {
-      id: 10,
-      name: "Mei",
-      amount: "₦320,000.00",
-      date: "18-11-2024",
-    },
-    {
-      id: 11,
-      name: "Steve",
-      amount: "₦320,000.00",
-      date: "18-11-2024",
-    },
-  ]);
+  const [items] = React.useState(COMPLETED_PAYMENT);
 
   const from = page * itemsPerPage;
   const to = Math.min((page + 1) * itemsPerPage, items.length);

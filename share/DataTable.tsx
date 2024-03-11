@@ -47,10 +47,22 @@ const AppDataTable = ({
     visible ? setVisible(false) : openDropdown();
   };
 
+  // const openDropdown = (): void => {
+  //   dropdownButtonRef.current?.measure((_fx, _fy, _w, h, _px, py) => {
+  //     setDropdownTop(py + h);
+  //     setDropdownRight(_px - _w);
+  //   });
+  //   setVisible(true);
+  // };
+
   const openDropdown = (): void => {
     dropdownButtonRef.current?.measure((_fx, _fy, _w, h, _px, py) => {
-      setDropdownTop(py + h);
-      setDropdownRight(_px - _w);
+      if (!isNaN(py) && !isNaN(h) && !isNaN(_px) && !isNaN(_w)) {
+        setDropdownTop(py + h);
+        setDropdownRight(_px - _w);
+      } else {
+        console.error("Invalid values for dropdown position");
+      }
     });
     setVisible(true);
   };

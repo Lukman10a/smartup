@@ -75,7 +75,11 @@ export default function InstitutionPage() {
           onSelect={() => null}
           iconName={"chevron-down-outline"}
           labelStyle={{ fontWeight: "400", fontSize: hp(12) }}
-          containerStyle={{ flex: 2, borderWidth: 1, borderColor: "#E4E4E4" }}
+          containerStyle={{
+            flex: 2,
+            borderWidth: 1,
+            borderColor: "#E4E4E4",
+          }}
         />
 
         <Dropdown

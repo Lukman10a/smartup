@@ -6,16 +6,18 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import StudentPayment from "./screen/StudentPayment";
 import PaymentStack from "./navigation/payment";
+import RestrictModal from "./screen/Modal/RestrictModal";
 
 export default function App() {
   return (
     <NavigationContainer>
       <StatusBar style="auto" />
-      <Provider store={store}>
-        {/* <PaymentStack /> */}
-        {/* <StudentPayment /> */}
-        <FeeStack />
-      </Provider>
+      {/* <Provider store={store}> */}
+      {/* <PaymentStack /> */}
+      {/* <StudentPayment /> */}
+      {/* <FeeStack /> */}
+      {/* </Provider> */}
+      <RestrictModal />
     </NavigationContainer>
   );
 }

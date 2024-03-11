@@ -49,7 +49,8 @@ export default function StudentPayment() {
     </View>
   ));
 
-  const isPayAllActive = selectedPayments.some((selected) => selected);
+  const isPayAllActive =
+    selectedPayments.filter((selected) => selected).length > 2;
 
   return (
     <SafeAreaView style={styles.container}>

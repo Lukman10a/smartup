@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
   activeButtonContainer: {
     backgroundColor: "#DC3500",
     padding: hp(18),
-    paddingHorizontal: hp(34),
+    paddingHorizontal: hp(30),
+    paddingVertical: hp(10),
     borderTopEndRadius: 10,
     borderTopStartRadius: 10,
     borderBottomWidth: 2,
@@ -67,7 +68,8 @@ const styles = StyleSheet.create({
     fontSize: hp(12),
   },
   tabButtonContainer: {
-    paddingHorizontal: hp(34),
+    paddingHorizontal: hp(30),
+    paddingVertical: hp(10),
     padding: hp(18),
     borderBottomWidth: 2,
     borderBottomColor: "#DC3500",

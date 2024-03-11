@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { Modal, PaperProvider, Portal, Button } from "react-native-paper";
+import { Button, Modal, PaperProvider, Portal } from "react-native-paper";
 
-export default function ReminderModal() {
+export default function RestrictModal() {
   const [visible, setVisible] = React.useState(false);
 
   const showModal = () => setVisible(true);
@@ -23,7 +23,7 @@ export default function ReminderModal() {
         >
           <View style={styles.container}>
             <View style={styles.centerContainer}>
-              <Text style={styles.title}>Send reminder</Text>
+              <Text style={styles.title}>Restrict student</Text>
               <Text style={styles.subTitle}>
                 Your message will be sent to the student’s email address.{" "}
               </Text>
@@ -35,7 +35,7 @@ export default function ReminderModal() {
 
               <View style={styles.actionbuttons}>
                 <TouchableOpacity style={styles.reminderButton}>
-                  <Text style={styles.reminderText}>Send reminder</Text>
+                  <Text style={styles.reminderText}>Restrict student</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -46,7 +46,7 @@ export default function ReminderModal() {
         style={{ marginTop: 30, backgroundColor: "red" }}
         onPress={showModal}
       >
-        Show Reminder
+        Show Restrict
       </Button>
     </PaperProvider>
   );

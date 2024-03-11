@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { hp } from "@/utils/dimensions";
 import * as React from "react";
@@ -42,6 +43,30 @@ export default function ActionModal() {
         Show Action
       </Button>
     </PaperProvider>
+=======
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+
+export default function ActionModal() {
+  return (
+    <View style={styles.container}>
+      <View style={styles.centerContainer}>
+        <Text style={styles.title}>Take action</Text>
+        <Text style={styles.subTitle}>
+          Select the action you’d prefer to take
+        </Text>
+
+        <View style={styles.actionbuttons}>
+          <TouchableOpacity style={styles.reminderButton}>
+            <Text style={styles.reminderText}>Send reminder</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.restrictButton}>
+            <Text style={styles.restrictText}>Restrict student</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
+>>>>>>> ead2b52c12d9d4677f1a766c518c53f40ec82fb7
   );
 }
 

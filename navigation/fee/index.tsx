@@ -1,4 +1,5 @@
 import FeeCheckout from "@/screen/FeeCheckout";
+// import ActionModal from "@/screen/Modal/ActionModal";
 import FeeSelection from "@/screen/FeeSelection";
 import FeeSummary from "@/screen/FeeSummary";
 import InstitutionPage from "@/screen/InstitutionPage";
@@ -15,6 +16,7 @@ const FeeStack = () => {
       <Stack.Screen name="FeeSelection" component={FeeSelection} />
       <Stack.Screen name="FeeSummary" component={FeeSummary} />
       <Stack.Screen name="FeeCheckout" component={FeeCheckout} />
+      {/* <Stack.Screen name="ActionModal" component={ActionModal} /> */}
     </Stack.Navigator>
   );
 };

@@ -18,6 +18,7 @@ export default function InstitutionPage() {
   const [tableType, setTableType] = useState<"completed" | "outstanding">(
     "completed"
   );
+  const [modalType, setModalType] = useState<"action" | "details">("action");
 
   return (
     <View style={styles.container}>
@@ -75,7 +76,11 @@ export default function InstitutionPage() {
           onSelect={() => null}
           iconName={"chevron-down-outline"}
           labelStyle={{ fontWeight: "400", fontSize: hp(12) }}
-          containerStyle={{ flex: 2, borderWidth: 1, borderColor: "#E4E4E4" }}
+          containerStyle={{
+            flex: 2,
+            borderWidth: 1,
+            borderColor: "#E4E4E4",
+          }}
         />
 
         <Dropdown
@@ -98,8 +103,26 @@ export default function InstitutionPage() {
       </View>
 
       {/* <TableOne showOptions={tableType === "outstanding" && true} /> */}
-      <View style={{ padding: hp(15), height: "auto", flex: 1 }}>
-        <AppDataTable showOptions={tableType === "outstanding" && true} />
+      <View
+        style={{
+          padding: hp(15),
+          flex: 1,
+          position: "relative",
+        }}
+      >
+        <AppDataTable
+          showOptions={tableType === "outstanding" && true}
+          tableOptions={
+            <>
+              <TouchableOpacity onPress={() => setModalType("action")}>
+                <Text style={{ padding: 10 }}>Take Action</Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={{ padding: 10 }}>View details</Text>
+              </TouchableOpacity>
+            </>
+          }
+        />
       </View>
     </View>
   );

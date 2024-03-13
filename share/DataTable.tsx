@@ -1,5 +1,4 @@
-import { hp } from "@/utils/dimensions";
-import * as React from "react";
+import React, { useState, useEffect, useRef, ReactNode } from "react";
 import {
   FlatList,
   Modal,
@@ -8,76 +7,130 @@ import {
   Text,
   StyleSheet,
   Dimensions,
+  LayoutChangeEvent,
+  NativeSyntheticEvent,
+  NativeTouchEvent,
 } from "react-native";
 import { DataTable } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { COMPLETED_PAYMENT } from "@/data";
+import { hp } from "@/utils/dimensions";
 
-const AppDataTable = ({
-  item,
-  showOptions,
-}: {
+const AppDataTable: React.FC<{
   item?: any;
   showOptions?: boolean;
-}) => {
-  const [visible, setVisible] = React.useState(false);
-  const dropdownButtonRef = React.useRef<TouchableOpacity>(null);
-  const [dropdownTop, setDropdownTop] = React.useState(0);
-  const [dropdownRight, setDropdownRight] = React.useState(0);
-  const [selected, setSelected] = React.useState(undefined);
+  tableOptions: ReactNode;
+}> = ({ item, showOptions, tableOptions }) => {
+  const [visible, setVisible] = useState(false);
+  const [selected, setSelected] = useState<number>();
+  const dropdownButtonRef = useRef<TouchableOpacity>(null);
+  const [dropdownTop, setDropdownTop] = useState(0);
+  const [dropdownRight, setDropdownRight] = useState(0);
+  const [positions, setPositions] = useState<{
+    [key: number]: { x: number; y: number };
+  }>({});
+
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
 
-  const [page, setPage] = React.useState<number>(0);
-  const [numberOfItemsPerPageList] = React.useState([2, 3, 4]);
-  const [itemsPerPage, onItemsPerPageChange] = React.useState(
-    numberOfItemsPerPageList[0]
-  );
+  const [page, setPage] = useState<number>(0);
+  const [numberOfItemsPerPageList] = useState([2, 3, 4]);
+  const [itemsPerPage, setItemsPerPage] = useState(numberOfItemsPerPageList[0]);
 
-  const [items] = React.useState(COMPLETED_PAYMENT);
+  const [items] = useState(COMPLETED_PAYMENT);
 
-  const from = page * itemsPerPage;
-  const to = Math.min((page + 1) * itemsPerPage, items.length);
-
-  React.useEffect(() => {
+  useEffect(() => {
     setPage(0);
   }, [itemsPerPage]);
 
-  const toggleDropdown = (): void => {
-    visible ? setVisible(false) : openDropdown();
+  const handleLayout = (event: LayoutChangeEvent, id: number) => {
+    const { x, y } = event.nativeEvent.layout;
+    setPositions((prevPositions) => ({
+      ...prevPositions,
+      [id]: { x, y },
+    }));
   };
 
-  const openDropdown = (): void => {
+  const toggleDropdown = (
+    index: number,
+    event: NativeSyntheticEvent<NativeTouchEvent>
+  ) => {
+    setSelected(index);
+    setVisible(!visible);
+    openDropdown(index, event);
+  };
+
+  const openDropdown = (
+    index: number,
+    event: NativeSyntheticEvent<NativeTouchEvent>
+  ) => {
+    const { pageX, pageY } = event.nativeEvent;
+    const position = positions[index];
     dropdownButtonRef.current?.measure((_fx, _fy, _w, h, _px, py) => {
-      setDropdownTop(py + h);
-      setDropdownRight(_px - _w);
+      if (!isNaN(py) && !isNaN(h) && !isNaN(_px) && !isNaN(_w)) {
+        setDropdownTop(pageY + h);
+        setDropdownRight(pageX + _fx - _w);
+        setVisible(true);
+      } else {
+        console.error("Invalid values for dropdown position");
+      }
     });
-    setVisible(true);
   };
 
-  const renderDropdown = (): React.ReactElement<any, any> => {
-    return (
-      <Modal
-        style={{ flex: 1, position: "relative" }}
-        visible={visible}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setVisible(false)}
+  const renderDropdown = (): React.ReactElement<any, any> => (
+    <Modal
+      style={{ flex: 1 }}
+      visible={visible}
+      transparent
+      animationType="fade"
+      onRequestClose={() => setVisible(false)}
+    >
+      <TouchableOpacity
+        style={styles.overlay}
+        onPress={() => setVisible(false)}
       >
-        <TouchableOpacity
-          style={styles.overlay}
-          onPress={() => setVisible(false)}
+        <View
+          style={[styles.dropdown, { top: dropdownTop, left: dropdownRight }]}
         >
-          <View
-            style={[styles.dropdown, { top: dropdownTop, left: dropdownRight }]}
-          >
-            <Text style={{ padding: 10 }}>Take Action</Text>
-            <Text style={{ padding: 10 }}>View details</Text>
-          </View>
-        </TouchableOpacity>
-      </Modal>
-    );
-  };
+          {tableOptions}
+        </View>
+      </TouchableOpacity>
+    </Modal>
+  );
+
+  const renderItem = ({ item, index }: { item: any; index: number }) => (
+    <DataTable.Row key={item.id} style={{ gap: 30, position: "relative" }}>
+      <DataTable.Cell textStyle={styles.rowText}>{item.id}</DataTable.Cell>
+      <DataTable.Cell>
+        <Text numberOfLines={1} style={styles.rowText}>
+          {item.name}
+        </Text>
+      </DataTable.Cell>
+      <DataTable.Cell numeric>
+        <Text numberOfLines={1} style={styles.rowText}>
+          {item.amount}
+        </Text>
+      </DataTable.Cell>
+      <DataTable.Cell numeric>
+        <Text style={styles.rowText}>{item.date}</Text>
+      </DataTable.Cell>
+      {showOptions && (
+        <>
+          <DataTable.Cell style={{ position: "relative" }} numeric>
+            <TouchableOpacity
+              style={styles.dropdownButton}
+              ref={dropdownButtonRef}
+              onPress={(event) => toggleDropdown(index, event)}
+              onLayout={(event) => handleLayout(event, index)}
+            >
+              {selected === index && renderDropdown()}
+              <Ionicons name="ellipsis-vertical" size={18} color="#202020" />
+            </TouchableOpacity>
+          </DataTable.Cell>
+        </>
+      )}
+    </DataTable.Row>
+  );
 
   return (
     <DataTable style={styles.table}>
@@ -102,71 +155,9 @@ const AppDataTable = ({
       <FlatList
         showsVerticalScrollIndicator={false}
         data={items}
-        renderItem={({ item }) => (
-          <DataTable.Row key={item.id} style={{ gap: 30 }}>
-            <DataTable.Cell textStyle={styles.rowText}>
-              {item.id}
-            </DataTable.Cell>
-            <DataTable.Cell>
-              <Text numberOfLines={1} style={styles.rowText}>
-                {item.name}
-              </Text>
-            </DataTable.Cell>
-            <DataTable.Cell numeric>
-              <Text numberOfLines={1} style={styles.rowText}>
-                {item.amount}
-              </Text>
-            </DataTable.Cell>
-            <DataTable.Cell
-              numeric
-              //   style={{ flexDirection: "row", alignItems: "center" }}
-            >
-              <Text style={styles.rowText}>{item.date}</Text>
-            </DataTable.Cell>
-            {showOptions && (
-              <DataTable.Cell style={{ position: "relative" }} numeric>
-                <View>
-                  <TouchableOpacity
-                    style={{
-                      alignItems: "flex-start",
-                      padding: 5,
-                      width: "auto",
-                      position: "relative",
-                    }}
-                    onPress={toggleDropdown}
-                    ref={dropdownButtonRef}
-                    // onLayout={(event) => {
-                    //   const { x, y, width, height } = event.nativeEvent.layout;
-                    //   setDropdownTop(y + height);
-                    //   setDropdownRight(windowWidth - (x + width));
-                    // }}
-                  >
-                    {renderDropdown()}
-                    <Ionicons
-                      name="ellipsis-vertical"
-                      size={18}
-                      color="#202020"
-                    />
-                  </TouchableOpacity>
-                </View>
-              </DataTable.Cell>
-            )}
-          </DataTable.Row>
-        )}
+        renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
       />
-
-      {/* <DataTable.Pagination
-        page={page}
-        numberOfPages={Math.ceil(items.length / itemsPerPage)}
-        onPageChange={(page) => setPage(page)}
-        label={`${from + 1}-${to} of ${items.length}`}
-        numberOfItemsPerPageList={numberOfItemsPerPageList}
-        numberOfItemsPerPage={itemsPerPage}
-        onItemsPerPageChange={onItemsPerPageChange}
-        showFastPaginationControls
-        selectPageDropdownLabel={"Rows per page"}
-      /> */}
     </DataTable>
   );
 };
@@ -187,12 +178,9 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     flex: 1,
+    backgroundColor: "#6666666a",
   },
-  buttonText: {
-    flex: 1,
-    color: "#666666",
-    fontWeight: "500",
-  },
+  buttonText: { flex: 1, color: "#666666", fontWeight: "500" },
   dropdown: {
     position: "absolute",
     backgroundColor: "#fff",
@@ -204,5 +192,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     borderRadius: 4,
     elevation: 5,
+  },
+  dropdownButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 5,
+    width: "100%",
+    borderWidth: 1,
+    borderColor: "red",
   },
 });

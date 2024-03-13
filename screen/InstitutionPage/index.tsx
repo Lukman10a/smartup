@@ -18,6 +18,7 @@ export default function InstitutionPage() {
   const [tableType, setTableType] = useState<"completed" | "outstanding">(
     "completed"
   );
+  const [modalType, setModalType] = useState<"action" | "details">("action");
 
   return (
     <View style={styles.container}>
@@ -109,7 +110,19 @@ export default function InstitutionPage() {
           position: "relative",
         }}
       >
-        <AppDataTable showOptions={tableType === "outstanding" && true} />
+        <AppDataTable
+          showOptions={tableType === "outstanding" && true}
+          tableOptions={
+            <>
+              <TouchableOpacity onPress={() => setModalType("action")}>
+                <Text style={{ padding: 10 }}>Take Action</Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={{ padding: 10 }}>View details</Text>
+              </TouchableOpacity>
+            </>
+          }
+        />
       </View>
     </View>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, ReactNode } from "react";
 import {
   FlatList,
   Modal,
@@ -16,10 +16,11 @@ import { Ionicons } from "@expo/vector-icons";
 import { COMPLETED_PAYMENT } from "@/data";
 import { hp } from "@/utils/dimensions";
 
-const AppDataTable: React.FC<{ item?: any; showOptions?: boolean }> = ({
-  item,
-  showOptions,
-}) => {
+const AppDataTable: React.FC<{
+  item?: any;
+  showOptions?: boolean;
+  tableOptions: ReactNode;
+}> = ({ item, showOptions, tableOptions }) => {
   const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState<number>();
   const dropdownButtonRef = useRef<TouchableOpacity>(null);
@@ -91,8 +92,7 @@ const AppDataTable: React.FC<{ item?: any; showOptions?: boolean }> = ({
         <View
           style={[styles.dropdown, { top: dropdownTop, left: dropdownRight }]}
         >
-          <Text style={{ padding: 10 }}>Take Action</Text>
-          <Text style={{ padding: 10 }}>View details</Text>
+          {tableOptions}
         </View>
       </TouchableOpacity>
     </Modal>

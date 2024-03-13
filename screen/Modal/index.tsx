@@ -1,3 +1,4 @@
+import { hp } from "@/utils/dimensions";
 import * as React from "react";
 import { StyleSheet } from "react-native";
 import { Modal, Portal, Button, Provider } from "react-native-paper";
@@ -19,7 +20,8 @@ const CustomModal: React.FC<ModalProps> = ({
     <Modal
       visible={visible}
       onDismiss={hideModal}
-      contentContainerStyle={styles.containerStyle}
+      style={styles.containerStyle}
+      contentContainerStyle={{ paddingHorizontal: hp(20) }}
     >
       {children}
     </Modal>

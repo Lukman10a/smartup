@@ -1,8 +1,6 @@
 import { hp } from "@/utils/dimensions";
 import * as React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { Modal, Portal, Text, Button, PaperProvider } from "react-native-paper";
-import CustomModal from ".";
+import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import { modalStyles } from "./styles";
 
 const Index = ({ onClose }: { onClose: () => void }) => {
@@ -33,7 +31,7 @@ export default Index;
 const styles = StyleSheet.create({
   actionbuttons: {
     flexDirection: "row",
-    gap: 4,
+    gap: hp(4),
   },
   reminderButton: {
     backgroundColor: "#3E8E7B",

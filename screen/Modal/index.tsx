@@ -26,9 +26,6 @@ const CustomModal: React.FC<ModalProps> = ({
           {children}
         </Modal>
       </Portal>
-      <Button style={{ marginTop: 30 }} onPress={showModal}>
-        Show
-      </Button>
     </Provider>
   );
 };

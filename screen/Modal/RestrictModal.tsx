@@ -22,23 +22,21 @@ export default function RestrictModal() {
           onDismiss={hideModal}
           contentContainerStyle={styles.container}
         >
-          <View style={styles.container}>
-            <View style={styles.centerContainer}>
-              <Text style={styles.title}>Restrict student</Text>
-              <Text style={styles.subTitle}>
-                Your message will be sent to the student’s email address.{" "}
-              </Text>
+          <View style={styles.centerContainer}>
+            <Text style={styles.title}>Restrict student</Text>
+            <Text style={styles.subTitle}>
+              Your message will be sent to the student’s email address.{" "}
+            </Text>
 
-              <TextInput
-                placeholder="Type in your message here..."
-                style={styles.input}
-              />
+            <TextInput
+              placeholder="Type in your message here..."
+              style={styles.input}
+            />
 
-              <View style={styles.actionbuttons}>
-                <TouchableOpacity style={styles.reminderButton}>
-                  <Text style={styles.reminderText}>Restrict student</Text>
-                </TouchableOpacity>
-              </View>
+            <View style={styles.actionbuttons}>
+              <TouchableOpacity style={styles.reminderButton}>
+                <Text style={styles.reminderText}>Restrict student</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </Modal>

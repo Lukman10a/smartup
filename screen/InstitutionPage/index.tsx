@@ -102,7 +102,13 @@ export default function InstitutionPage() {
       </View>
 
       {/* <TableOne showOptions={tableType === "outstanding" && true} /> */}
-      <View style={{ padding: hp(15), height: "auto", flex: 1 }}>
+      <View
+        style={{
+          padding: hp(15),
+          flex: 1,
+          position: "relative",
+        }}
+      >
         <AppDataTable showOptions={tableType === "outstanding" && true} />
       </View>
     </View>

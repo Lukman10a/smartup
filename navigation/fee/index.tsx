@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 const FeeStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="ModalPage" component={RestrictModal} />
+      {/* <Stack.Screen name="ModalPage" component={RestrictModal} /> */}
       <Stack.Screen name="InstitutionPage" component={InstitutionPage} />
       <Stack.Screen name="FeeSelection" component={FeeSelection} />
       <Stack.Screen name="FeeSummary" component={FeeSummary} />

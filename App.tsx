@@ -12,12 +12,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <StatusBar style="auto" />
-      {/* <Provider store={store}> */}
-      {/* <PaymentStack /> */}
-      {/* <StudentPayment /> */}
-      {/* <FeeStack /> */}
-      {/* </Provider> */}
-      <RestrictModal />
+      <Provider store={store}>
+        {/* <PaymentStack /> 
+     <StudentPayment />  */}
+        <FeeStack />
+      </Provider>
     </NavigationContainer>
   );
 }

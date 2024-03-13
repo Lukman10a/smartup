@@ -1,3 +1,4 @@
+import { hp } from "@/utils/dimensions";
 import React from "react";
 import {
   View,
@@ -21,23 +22,21 @@ export default function ReminderModal() {
           onDismiss={hideModal}
           contentContainerStyle={styles.container}
         >
-          <View style={styles.container}>
-            <View style={styles.centerContainer}>
-              <Text style={styles.title}>Send reminder</Text>
-              <Text style={styles.subTitle}>
-                Your message will be sent to the student’s email address.{" "}
-              </Text>
+          <View style={styles.centerContainer}>
+            <Text style={styles.title}>Send reminder</Text>
+            <Text style={styles.subTitle}>
+              Your message will be sent to the student’s email address.{" "}
+            </Text>
 
-              <TextInput
-                placeholder="Type in your message here..."
-                style={styles.input}
-              />
+            <TextInput
+              placeholder="Type in your message here..."
+              style={styles.input}
+            />
 
-              <View style={styles.actionbuttons}>
-                <TouchableOpacity style={styles.reminderButton}>
-                  <Text style={styles.reminderText}>Send reminder</Text>
-                </TouchableOpacity>
-              </View>
+            <View style={styles.actionbuttons}>
+              <TouchableOpacity style={styles.reminderButton}>
+                <Text style={styles.reminderText}>Send reminder</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </Modal>
@@ -55,13 +54,14 @@ export default function ReminderModal() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: "100%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "skyblue",
+    marginHorizontal: hp(30),
   },
   centerContainer: {
-    borderRadius: 20,
-    padding: 30,
+    borderRadius: hp(20),
+    padding: hp(30),
     backgroundColor: "white",
   },
   title: {

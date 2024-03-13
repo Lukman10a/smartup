@@ -1,3 +1,4 @@
+import { hp } from "@/utils/dimensions";
 import React from "react";
 import {
   View,
@@ -55,17 +56,17 @@ export default function RestrictModal() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: "100%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "skyblue",
   },
   centerContainer: {
-    borderRadius: 20,
+    borderRadius: hp(20),
     padding: 30,
     backgroundColor: "white",
   },
   title: {
-    fontSize: 17,
+    fontSize: hp(17),
     fontWeight: "600",
   },
   subTitle: {

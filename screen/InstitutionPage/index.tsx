@@ -13,118 +13,171 @@ import Dropdown from "@/share/drop";
 import TableOne from "@/share/Table";
 import AppDataTable from "@/share/DataTable";
 import TableButton from "@/share/TableButton";
+import CustomModal from "../Modal";
+import ActionModal from "../Modal/ActionModal";
+import ReminderModal from "../Modal/ReminderModal";
+import { Portal, Provider } from "react-native-paper";
 
 export default function InstitutionPage() {
   const [tableType, setTableType] = useState<"completed" | "outstanding">(
     "completed"
   );
-  const [modalType, setModalType] = useState<"action" | "details">("action");
+  const [modalType, setModalType] = useState<"action" | "details">();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  // const handleOpenModal = () => {
+  //   setIsModalVisible(true);
+  //   setTableType("");
+  // };
+
+  const handleModalClose = () => {
+    setIsModalVisible(false);
+    setTableType("outstanding");
+  };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.heroContainer}>
-        <View style={styles.overlay} />
-        <ImageBackground
-          source={require("assets/homeBg.png")}
-          resizeMode="cover"
-          style={{
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Image source={require("assets/badge.png")} />
-          <View
-            style={{ alignItems: "center", marginTop: 10, gap: 5, zIndex: 2 }}
-          >
-            <Text style={{ fontSize: hp(20), fontWeight: "600" }}>
-              JOY-MARVY SCHOOL
-            </Text>
-            <Text style={{ fontSize: hp(15) }}>Learning for development</Text>
+    <Provider>
+      <Portal>
+        <View style={styles.container}>
+          <View style={styles.heroContainer}>
+            <View style={styles.overlay} />
+            <ImageBackground
+              source={require("assets/homeBg.png")}
+              resizeMode="cover"
+              style={{
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Image source={require("assets/badge.png")} />
+              <View
+                style={{
+                  alignItems: "center",
+                  marginTop: 10,
+                  gap: 5,
+                  zIndex: 2,
+                }}
+              >
+                <Text style={{ fontSize: hp(20), fontWeight: "600" }}>
+                  JOY-MARVY SCHOOL
+                </Text>
+                <Text style={{ fontSize: hp(15) }}>
+                  Learning for development
+                </Text>
+              </View>
+            </ImageBackground>
           </View>
-        </ImageBackground>
-      </View>
-      <TableButton
-        tableTypes={[
-          { type: "completed", label: "Completed Payments" },
-          { type: "outstanding", label: "Pending Paymnets" },
-        ]}
-        activeTableType={tableType}
-        setTableType={setTableType}
-      />
+          <TableButton
+            tableTypes={[
+              { type: "completed", label: "Completed Payments" },
+              { type: "outstanding", label: "Pending Paymnets" },
+            ]}
+            activeTableType={tableType}
+            setTableType={setTableType}
+          />
 
-      <View
-        style={{
-          flexDirection: "row",
-          marginBottom: hp(16),
-          gap: hp(20),
-          paddingHorizontal: 10,
-        }}
-      >
-        <Dropdown
-          label={"2023 / 2024 Academic session"}
-          data={[
-            {
-              label: "2022 / 2023 Academic session",
-              value: "2022 / 2023 Academic session",
-            },
-            {
-              label: "2023 / 2024 Academic session",
-              value: "2023 / 2024 Academic session",
-            },
-          ]}
-          onSelect={() => null}
-          iconName={"chevron-down-outline"}
-          labelStyle={{ fontWeight: "400", fontSize: hp(12) }}
-          containerStyle={{
-            flex: 2,
-            borderWidth: 1,
-            borderColor: "#E4E4E4",
-          }}
-        />
+          <View
+            style={{
+              flexDirection: "row",
+              marginBottom: hp(16),
+              gap: hp(20),
+              paddingHorizontal: 10,
+            }}
+          >
+            <Dropdown
+              label={"2023 / 2024 Academic session"}
+              data={[
+                {
+                  label: "2022 / 2023 Academic session",
+                  value: "2022 / 2023 Academic session",
+                },
+                {
+                  label: "2023 / 2024 Academic session",
+                  value: "2023 / 2024 Academic session",
+                },
+              ]}
+              onSelect={() => null}
+              iconName={"chevron-down-outline"}
+              labelStyle={{ fontWeight: "400", fontSize: hp(12) }}
+              containerStyle={{
+                flex: 2,
+                borderWidth: 1,
+                borderColor: "#E4E4E4",
+              }}
+            />
 
-        <Dropdown
-          label={"Term"}
-          data={[
-            {
-              label: "2rd Term",
-              value: "2rd Term",
-            },
-            {
-              label: "3rd Term",
-              value: "3rd Term",
-            },
-          ]}
-          onSelect={() => null}
-          iconName={"chevron-down-outline"}
-          labelStyle={{ fontWeight: "400", fontSize: hp(12) }}
-          containerStyle={{ flex: 1, borderWidth: 1, borderColor: "#E4E4E4" }}
-        />
-      </View>
+            <Dropdown
+              label={"Term"}
+              data={[
+                {
+                  label: "2rd Term",
+                  value: "2rd Term",
+                },
+                {
+                  label: "3rd Term",
+                  value: "3rd Term",
+                },
+              ]}
+              onSelect={() => null}
+              iconName={"chevron-down-outline"}
+              labelStyle={{ fontWeight: "400", fontSize: hp(12) }}
+              containerStyle={{
+                flex: 1,
+                borderWidth: 1,
+                borderColor: "#E4E4E4",
+              }}
+            />
+          </View>
 
-      {/* <TableOne showOptions={tableType === "outstanding" && true} /> */}
-      <View
-        style={{
-          padding: hp(15),
-          flex: 1,
-          position: "relative",
-        }}
-      >
-        <AppDataTable
-          showOptions={tableType === "outstanding" && true}
-          tableOptions={
-            <>
-              <TouchableOpacity onPress={() => setModalType("action")}>
-                <Text style={{ padding: 10 }}>Take Action</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={{ padding: 10 }}>View details</Text>
-              </TouchableOpacity>
-            </>
-          }
-        />
-      </View>
-    </View>
+          {/* <TableOne showOptions={tableType === "outstanding" && true} /> */}
+          <View
+            style={{
+              padding: hp(15),
+              flex: 1,
+              position: "relative",
+            }}
+          >
+            <AppDataTable
+              showOptions={tableType === "outstanding" && true}
+              tableOptions={
+                <>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setModalType("action");
+                      setIsModalVisible(true);
+                    }}
+                  >
+                    <Text style={{ padding: 10 }}>Take Action</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setModalType("details"), setIsModalVisible(true);
+                    }}
+                  >
+                    <Text style={{ padding: 10 }}>View details</Text>
+                  </TouchableOpacity>
+                </>
+              }
+            />
+          </View>
+        </View>
+        {isModalVisible && (
+          <CustomModal
+            visible={isModalVisible}
+            showModal={() => setIsModalVisible(true)}
+            hideModal={handleModalClose}
+          >
+            {modalType === "action" && (
+              <ActionModal onClose={handleModalClose} />
+            )}
+            {modalType === "details" && (
+              <ReminderModal onClose={handleModalClose} />
+            )}
+          </CustomModal>
+        )}
+      </Portal>
+    </Provider>
   );
 }
 

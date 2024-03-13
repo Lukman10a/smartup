@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 5,
     width: "100%",
-    borderWidth: 1,
-    borderColor: "red",
+    // borderWidth: 1,
+    // borderColor: "red",
   },
 });

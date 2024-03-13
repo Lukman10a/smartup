@@ -16,17 +16,13 @@ const CustomModal: React.FC<ModalProps> = ({
   visible,
 }) => {
   return (
-    <Provider>
-      <Portal>
-        <Modal
-          visible={visible}
-          onDismiss={hideModal}
-          contentContainerStyle={styles.containerStyle}
-        >
-          {children}
-        </Modal>
-      </Portal>
-    </Provider>
+    <Modal
+      visible={visible}
+      onDismiss={hideModal}
+      contentContainerStyle={styles.containerStyle}
+    >
+      {children}
+    </Modal>
   );
 };
 

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import { modalStyles } from "./styles";
 
 export default function ReminderModal({ onClose }: { onClose: () => void }) {
   const [visible, setVisible] = React.useState(false);
@@ -14,9 +15,9 @@ export default function ReminderModal({ onClose }: { onClose: () => void }) {
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   return (
-    <View style={styles.centerContainer}>
-      <Text style={styles.title}>Send reminder</Text>
-      <Text style={styles.subTitle}>
+    <View style={modalStyles.centerContainer}>
+      <Text style={modalStyles.title}>Send reminder</Text>
+      <Text style={modalStyles.subTitle}>
         Your message will be sent to the student’s email address.{" "}
       </Text>
 
@@ -35,42 +36,19 @@ export default function ReminderModal({ onClose }: { onClose: () => void }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: hp(30),
-  },
-  centerContainer: {
-    borderRadius: hp(20),
-    padding: hp(30),
-    backgroundColor: "white",
-  },
-  title: {
-    fontSize: 17,
-    fontWeight: "600",
-  },
-  subTitle: {
-    marginVertical: 10,
-    marginBottom: 26,
-    fontWeight: "400",
-    fontSize: 12,
-    color: "#68798A",
-  },
   input: {
     backgroundColor: "#F1F1F166",
-    borderRadius: 10,
-    padding: 10,
-    paddingBottom: 70,
-    marginBottom: 26,
+    borderRadius: hp(10),
+    padding: hp(10),
+    paddingBottom: hp(70),
+    marginBottom: hp(26),
   },
   actionbuttons: {},
   reminderButton: {
     backgroundColor: "#DB3A07",
-    padding: 16,
-    paddingHorizontal: 24,
-    borderRadius: 8,
+    padding: hp(16),
+    paddingHorizontal: hp(24),
+    borderRadius: hp(8),
   },
   reminderText: {
     color: "white",

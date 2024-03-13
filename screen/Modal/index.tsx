@@ -35,11 +35,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  reminderText: {
-    color: "white",
-  },
-
-  restrictText: {
-    color: "white",
-  },
 });

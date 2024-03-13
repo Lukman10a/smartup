@@ -3,6 +3,7 @@ import * as React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Modal, Portal, Text, Button, PaperProvider } from "react-native-paper";
 import CustomModal from ".";
+import { modalStyles } from "./styles";
 
 const Index = ({ onClose }: { onClose: () => void }) => {
   const [visible, setVisible] = React.useState(false);
@@ -10,9 +11,9 @@ const Index = ({ onClose }: { onClose: () => void }) => {
   const showModal = () => setVisible(true);
 
   return (
-    <View style={styles.centerContainer}>
-      <Text style={styles.title}>Take action</Text>
-      <Text style={styles.subTitle}>
+    <View style={modalStyles.centerContainer}>
+      <Text style={modalStyles.title}>Take action</Text>
+      <Text style={modalStyles.subTitle}>
         Select the action you’d prefer to take
       </Text>
       <View style={styles.actionbuttons}>
@@ -30,28 +31,6 @@ const Index = ({ onClose }: { onClose: () => void }) => {
 export default Index;
 
 const styles = StyleSheet.create({
-  containerStyle: {
-    flex: 1,
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  centerContainer: {
-    borderRadius: hp(20),
-    padding: hp(30),
-    backgroundColor: "white",
-  },
-  title: {
-    fontSize: hp(17),
-    fontWeight: "600",
-  },
-  subTitle: {
-    marginVertical: 10,
-    marginBottom: hp(26),
-    fontWeight: "400",
-    fontSize: hp(14),
-    color: "#68798A",
-  },
   actionbuttons: {
     flexDirection: "row",
     gap: 4,

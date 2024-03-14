@@ -60,16 +60,47 @@ const AppDataTable: React.FC<{
     openDropdown(index, event);
   };
 
+  // const openDropdown = (
+  //   index: number,
+  //   event: NativeSyntheticEvent<NativeTouchEvent>
+  // ) => {
+  //   const { pageX, pageY } = event.nativeEvent;
+  //   const position = positions[index];
+  //   dropdownButtonRef.current?.measure((_fx, _fy, _w, h, _px, py) => {
+  //     console.log("Measure results:", { _fx, _fy, _w, h, _px, py });
+
+  //     if (!isNaN(py) && !isNaN(h) && !isNaN(_px) && !isNaN(_w)) {
+  //       setDropdownTop(pageY + h);
+  //       setDropdownRight(pageX + _fx - _w);
+  //       setVisible(true);
+  //     } else {
+  //       console.error("Invalid values for dropdown position");
+  //       // Fallback: Set default values or handle the error appropriately
+  //       setDropdownTop(0);
+  //       setDropdownRight(0);
+  //     }
+  //   });
+  // };
+
   const openDropdown = (
     index: number,
     event: NativeSyntheticEvent<NativeTouchEvent>
   ) => {
     const { pageX, pageY } = event.nativeEvent;
     const position = positions[index];
-    dropdownButtonRef.current?.measure((_fx, _fy, _w, h, _px, py) => {
-      if (!isNaN(py) && !isNaN(h) && !isNaN(_px) && !isNaN(_w)) {
-        setDropdownTop(pageY + h);
-        setDropdownRight(pageX + _fx - _w);
+    dropdownButtonRef.current?.measureInWindow((x, y, width, height) => {
+      console.log(dropdownTop);
+      console.log(dropdownRight);
+      console.log(pageY, pageX);
+      // console.log(py, h, _px, _w);
+
+      if (!isNaN(width) && !isNaN(height)) {
+        const adjustedPageY = pageY + height;
+        const adjustedPageX = pageX + height;
+        const dropDownTop = Math.min(adjustedPageY, windowHeight + height);
+        const dropDownRight = Math.min(adjustedPageX, windowHeight + height);
+        setDropdownTop(dropDownTop);
+        setDropdownRight(dropDownRight);
         setVisible(true);
       } else {
         console.error("Invalid values for dropdown position");

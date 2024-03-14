@@ -91,8 +91,8 @@ const AppDataTable: React.FC<{
     dropdownButtonRef.current?.measureInWindow((x, y, width, height) => {
       console.log(dropdownTop);
       console.log(dropdownRight);
-      console.log(pageY, pageX);
-      // console.log(py, h, _px, _w);
+      // console.log(pageY, pageX);
+      // console.log(x, y);
 
       if (!isNaN(width) && !isNaN(height)) {
         const adjustedPageY = pageY + height;

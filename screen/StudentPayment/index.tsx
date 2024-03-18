@@ -6,15 +6,19 @@ import {
   ImageBackground,
   ScrollView,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import { hp } from "@/utils/dimensions";
 import PaymentDetail from "@/share/PaymentDetail";
 import Button from "@/share/Button";
-import { PAYMENT_DETAILS } from "@/data";
+import { PAYMENT_DETAILS, PAYMENT_HISTORY } from "@/data";
 import TableButton from "@/share/TableButton";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AppDataTable from "@/share/DataTable";
+import CustomModal from "../Modal";
+import ActionModal from "../Modal/ActionModal";
+import PaymentDetailsModal from "../Modal/PaymentDetailsModal";
 
 export default function StudentPayment() {
   const [tableType, setTableType] = useState<
@@ -24,9 +28,10 @@ export default function StudentPayment() {
   const [selectedPayments, setSelectedPayments] = useState(
     PAYMENT_DETAILS.map(() => false)
   );
+  const [modalType, setModalType] = useState<"paymentDetails">();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handlePayment = () => {
-    console.log("payed");
     navigation.navigate("PaymentSummary");
   };
 
@@ -36,6 +41,11 @@ export default function StudentPayment() {
       newSelectedPayments[index] = !newSelectedPayments[index];
       return newSelectedPayments;
     });
+  };
+
+  const handleModalClose = () => {
+    setIsModalVisible(false);
+    setTableType("Payment history");
   };
 
   const paymentDetails = PAYMENT_DETAILS.map((item, index) => (
@@ -51,6 +61,23 @@ export default function StudentPayment() {
 
   const isPayAllActive =
     selectedPayments.filter((selected) => selected).length > 2;
+
+  // const renderItem = ({ item }) => (
+  //   <View style={styles.row}>
+  //     <View style={styles.cell}>
+  //       <Text>{item.id}</Text>
+  //     </View>
+  //     <View style={styles.cell}>
+  //       <Text>{item.paymentType}</Text>
+  //     </View>
+  //     <View style={styles.cell}>
+  //       <Text>{item.amount}</Text>
+  //     </View>
+  //     <View style={styles.cell}>
+  //       <Text>{item.status}</Text>
+  //     </View>
+  //   </View>
+  // );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -98,8 +125,39 @@ export default function StudentPayment() {
 
       {tableType === "Payment history" && (
         <View style={{ padding: hp(15), height: "auto", flex: 1 }}>
-          <AppDataTable showOptions={tableType === "Payment history" && true} />
+          <AppDataTable
+            headerItems={[
+              { name: "Id", value: "id" },
+              { name: "Payment Type", value: "paymentType" },
+              { name: "Amount", value: "amount" },
+              { name: "Status", value: "status" },
+            ]}
+            tableOptions={
+              <TouchableOpacity
+                onPress={() => {
+                  setModalType("paymentDetails");
+                  setIsModalVisible(true);
+                }}
+              >
+                <Text style={{ padding: 10 }}>View details</Text>
+              </TouchableOpacity>
+            }
+            showOptions={tableType === "Payment history" && true}
+            items={PAYMENT_HISTORY}
+          />
         </View>
+      )}
+
+      {isModalVisible && (
+        <CustomModal
+          visible={isModalVisible}
+          showModal={() => setIsModalVisible(true)}
+          hideModal={handleModalClose}
+        >
+          {modalType === "paymentDetails" && (
+            <PaymentDetailsModal onClose={handleModalClose} />
+          )}
+        </CustomModal>
       )}
     </SafeAreaView>
   );

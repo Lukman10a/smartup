@@ -139,3 +139,29 @@ export const COMPLETED_PAYMENT = [
     date: "18-11-2024",
   },
 ];
+
+export const PAYMENT_HISTORY = [
+  {
+    id: 1,
+    paymentType: "Tuition fee",
+    amount: "₦320,000",
+    status: "pending",
+  },
+  {
+    id: 2,
+    paymentType: "Multiple fees",
+    amount: "₦700,000",
+    status: "successful",
+  },
+  { id: 3, paymentType: "Party fee", amount: "₦300,000", status: "failed" },
+  { id: 4, paymentType: "W.A.E.C Fee", amount: "₦400,00", status: "pending" },
+  { id: 5, paymentType: "Tuition fee", amount: "₦60,000", status: "pending" },
+  {
+    id: 6,
+    paymentType: "Multiple fees",
+    amount: "₦8,000",
+    status: "successful",
+  },
+  { id: 7, paymentType: "Party fee", amount: "₦20,000", status: "failed" },
+  { id: 8, paymentType: "W.A.E.C Fee", amount: "₦4,500", status: "successful" },
+];

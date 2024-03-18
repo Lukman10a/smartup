@@ -6,17 +6,16 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
-  ScrollView,
 } from "react-native";
 import { hp } from "@/utils/dimensions";
 import Dropdown from "@/share/drop";
-import TableOne from "@/share/Table";
 import AppDataTable from "@/share/DataTable";
 import TableButton from "@/share/TableButton";
 import CustomModal from "../Modal";
 import ActionModal from "../Modal/ActionModal";
 import ReminderModal from "../Modal/ReminderModal";
 import { Portal, Provider } from "react-native-paper";
+import { COMPLETED_PAYMENT } from "@/data";
 
 export default function InstitutionPage() {
   const [tableType, setTableType] = useState<"completed" | "outstanding">(
@@ -139,7 +138,14 @@ export default function InstitutionPage() {
             }}
           >
             <AppDataTable
+              headerItems={[
+                { name: "Id", value: "id" },
+                { name: "Name", value: "name" },
+                { name: "Amount", value: "amount" },
+                { name: "Date", value: "date" },
+              ]}
               showOptions={tableType === "outstanding" && true}
+              items={COMPLETED_PAYMENT}
               tableOptions={
                 <>
                   <TouchableOpacity

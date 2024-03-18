@@ -3,7 +3,7 @@ import React from "react";
 import FeeSummaryDetail from "@/share/FeeSummaryDetail";
 import { SafeAreaView } from "react-native-safe-area-context";
 import TuitionContainer from "@/share/TuitionContainer";
-import Button from "@/share/Button";
+import Button from "@/share/PrimaryButton";
 import { useNavigation } from "@react-navigation/native";
 import SecondaryCta from "@/share/SecondaryCta";
 import { hp } from "@/utils/dimensions";

@@ -10,17 +10,19 @@ import {
   LayoutChangeEvent,
   NativeSyntheticEvent,
   NativeTouchEvent,
+  ListRenderItem,
 } from "react-native";
 import { DataTable } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
-import { COMPLETED_PAYMENT } from "@/data";
 import { hp } from "@/utils/dimensions";
 
 const AppDataTable: React.FC<{
-  item?: any;
+  items?: any;
   showOptions?: boolean;
   tableOptions: ReactNode;
-}> = ({ item, showOptions, tableOptions }) => {
+  renderItem?: ListRenderItem<any>;
+  headerItems: { name: string; value: string }[];
+}> = ({ items, showOptions, tableOptions, renderItem, headerItems }) => {
   const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState<number>();
   const dropdownButtonRef = useRef<TouchableOpacity>(null);
@@ -36,8 +38,6 @@ const AppDataTable: React.FC<{
   const [page, setPage] = useState<number>(0);
   const [numberOfItemsPerPageList] = useState([2, 3, 4]);
   const [itemsPerPage, setItemsPerPage] = useState(numberOfItemsPerPageList[0]);
-
-  const [items] = useState(COMPLETED_PAYMENT);
 
   useEffect(() => {
     setPage(0);
@@ -60,28 +60,6 @@ const AppDataTable: React.FC<{
     openDropdown(index, event);
   };
 
-  // const openDropdown = (
-  //   index: number,
-  //   event: NativeSyntheticEvent<NativeTouchEvent>
-  // ) => {
-  //   const { pageX, pageY } = event.nativeEvent;
-  //   const position = positions[index];
-  //   dropdownButtonRef.current?.measure((_fx, _fy, _w, h, _px, py) => {
-  //     console.log("Measure results:", { _fx, _fy, _w, h, _px, py });
-
-  //     if (!isNaN(py) && !isNaN(h) && !isNaN(_px) && !isNaN(_w)) {
-  //       setDropdownTop(pageY + h);
-  //       setDropdownRight(pageX + _fx - _w);
-  //       setVisible(true);
-  //     } else {
-  //       console.error("Invalid values for dropdown position");
-  //       // Fallback: Set default values or handle the error appropriately
-  //       setDropdownTop(0);
-  //       setDropdownRight(0);
-  //     }
-  //   });
-  // };
-
   const openDropdown = (
     index: number,
     event: NativeSyntheticEvent<NativeTouchEvent>
@@ -89,11 +67,6 @@ const AppDataTable: React.FC<{
     const { pageX, pageY } = event.nativeEvent;
     const position = positions[index];
     dropdownButtonRef.current?.measureInWindow((x, y, width, height) => {
-      console.log(dropdownTop);
-      console.log(dropdownRight);
-      // console.log(pageY, pageX);
-      // console.log(x, y);
-
       if (!isNaN(width) && !isNaN(height)) {
         const adjustedPageY = pageY + height;
         const adjustedPageX = pageX + height;
@@ -129,53 +102,49 @@ const AppDataTable: React.FC<{
     </Modal>
   );
 
-  const renderItem = ({ item, index }: { item: any; index: number }) => (
+  const defaultRenderItem = ({ item, index }: { item: any; index: number }) => (
     <DataTable.Row key={item.id} style={{ gap: 30, position: "relative" }}>
-      <DataTable.Cell textStyle={styles.rowText}>{item.id}</DataTable.Cell>
-      <DataTable.Cell>
-        <Text numberOfLines={1} style={styles.rowText}>
-          {item.name}
-        </Text>
-      </DataTable.Cell>
-      <DataTable.Cell numeric>
-        <Text numberOfLines={1} style={styles.rowText}>
-          {item.amount}
-        </Text>
-      </DataTable.Cell>
-      <DataTable.Cell numeric>
-        <Text style={styles.rowText}>{item.date}</Text>
-      </DataTable.Cell>
+      {headerItems?.map((header, i) => (
+        <DataTable.Cell
+          key={i}
+          textStyle={styles.rowText}
+          numeric={i > 1} // assuming Amount and Due Date are numeric
+        >
+          <Text numberOfLines={1} style={styles.rowText}>
+            {item[header.value]}
+          </Text>
+        </DataTable.Cell>
+      ))}
       {showOptions && (
-        <>
-          <DataTable.Cell style={{ position: "relative" }} numeric>
-            <TouchableOpacity
-              style={styles.dropdownButton}
-              ref={dropdownButtonRef}
-              onPress={(event) => toggleDropdown(index, event)}
-              onLayout={(event) => handleLayout(event, index)}
-            >
-              {selected === index && renderDropdown()}
-              <Ionicons name="ellipsis-vertical" size={18} color="#202020" />
-            </TouchableOpacity>
-          </DataTable.Cell>
-        </>
+        <DataTable.Cell style={{ position: "relative" }} numeric>
+          <TouchableOpacity
+            style={styles.dropdownButton}
+            ref={dropdownButtonRef}
+            onPress={(event) => toggleDropdown(index, event)}
+            onLayout={(event) => handleLayout(event, index)}
+          >
+            {selected === index && renderDropdown()}
+            <Ionicons name="ellipsis-vertical" size={18} color="#202020" />
+          </TouchableOpacity>
+        </DataTable.Cell>
       )}
     </DataTable.Row>
   );
 
+  const renderRowItem = renderItem || defaultRenderItem;
+
   return (
     <DataTable style={styles.table}>
       <DataTable.Header>
-        <DataTable.Title textStyle={styles.tableTitle}>Id</DataTable.Title>
-        <DataTable.Title textStyle={styles.tableTitle}>
-          Student Name
-        </DataTable.Title>
-        <DataTable.Title textStyle={styles.tableTitle} numeric>
-          Amount
-        </DataTable.Title>
-        <DataTable.Title textStyle={styles.tableTitle} numeric>
-          Due Date
-        </DataTable.Title>
+        {headerItems?.map((header, i) => (
+          <DataTable.Title
+            key={i}
+            textStyle={styles.tableTitle}
+            numeric={i > 1} // assuming Amount and Due Date are numeric
+          >
+            {header.name}
+          </DataTable.Title>
+        ))}
         {showOptions && (
           <DataTable.Title textStyle={styles.tableTitle} numeric>
             {" "}
@@ -186,7 +155,7 @@ const AppDataTable: React.FC<{
       <FlatList
         showsVerticalScrollIndicator={false}
         data={items}
-        renderItem={renderItem}
+        renderItem={renderRowItem}
         keyExtractor={(item) => item.id.toString()}
       />
     </DataTable>

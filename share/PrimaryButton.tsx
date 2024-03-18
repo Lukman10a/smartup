@@ -2,7 +2,7 @@ import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import { hp } from "@/utils/dimensions";
 
-export default function Button({
+export default function PrimaryButton({
   handlePress,
   text,
   disabled,

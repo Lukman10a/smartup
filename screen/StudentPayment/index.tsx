@@ -10,20 +10,22 @@ import {
 } from "react-native";
 import { hp } from "@/utils/dimensions";
 import PaymentDetail from "@/share/PaymentDetail";
-import Button from "@/share/Button";
+import Button from "@/share/PrimaryButton";
 import { PAYMENT_DETAILS, PAYMENT_HISTORY } from "@/data";
 import TableButton from "@/share/TableButton";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AppDataTable from "@/share/DataTable";
 import CustomModal from "../Modal";
-import ActionModal from "../Modal/ActionModal";
 import PaymentDetailsModal from "../Modal/PaymentDetailsModal";
+import { Portal, Provider } from "react-native-paper";
+import PaymentSummary from "../PaymentSummary";
 
 export default function StudentPayment() {
   const [tableType, setTableType] = useState<
     "Pending payments" | "Payment history"
   >("Pending payments");
+  const [showPaymentSummary, setShowPaymentSummary] = useState(false);
   const navigation = useNavigation<PaymentStackNavigationProp>();
   const [selectedPayments, setSelectedPayments] = useState(
     PAYMENT_DETAILS.map(() => false)
@@ -32,7 +34,7 @@ export default function StudentPayment() {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handlePayment = () => {
-    navigation.navigate("PaymentSummary");
+    setShowPaymentSummary(true);
   };
 
   const handleSelectPayment = (index: number) => {
@@ -46,6 +48,10 @@ export default function StudentPayment() {
   const handleModalClose = () => {
     setIsModalVisible(false);
     setTableType("Payment history");
+  };
+
+  const handleCheckout = () => {
+    return navigation.navigate("FeeSummary");
   };
 
   const paymentDetails = PAYMENT_DETAILS.map((item, index) => (
@@ -62,104 +68,107 @@ export default function StudentPayment() {
   const isPayAllActive =
     selectedPayments.filter((selected) => selected).length > 2;
 
-  // const renderItem = ({ item }) => (
-  //   <View style={styles.row}>
-  //     <View style={styles.cell}>
-  //       <Text>{item.id}</Text>
-  //     </View>
-  //     <View style={styles.cell}>
-  //       <Text>{item.paymentType}</Text>
-  //     </View>
-  //     <View style={styles.cell}>
-  //       <Text>{item.amount}</Text>
-  //     </View>
-  //     <View style={styles.cell}>
-  //       <Text>{item.status}</Text>
-  //     </View>
-  //   </View>
-  // );
-
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.bgImageContainer}>
-        <ImageBackground
-          source={require("assets/pay_bg.jpg")}
-          resizeMode="cover"
-          style={styles.bgImage}
-        ></ImageBackground>
-        <Image
-          source={require("@/assets/profile.png")}
-          style={styles.profileImg}
-        />
-      </View>
-
-      <View style={styles.title}>
-        <Text style={{ fontSize: hp(18), fontWeight: "600" }}>
-          OGUNSEGBE TOSIN
-        </Text>
-        <Text style={{ fontSize: hp(12) }}>J.S.S. 1</Text>
-      </View>
-      <TableButton
-        tableTypes={[
-          { type: "Pending payments", label: "Pending payments" },
-          { type: "Payment history", label: "Payment history" },
-        ]}
-        activeTableType={tableType}
-        setTableType={setTableType}
-      />
-      {tableType === "Pending payments" && (
-        <View style={{ flex: 1 }}>
-          <ScrollView style={{}} showsVerticalScrollIndicator={false}>
-            {paymentDetails}
-          </ScrollView>
-          <View style={{ paddingHorizontal: hp(20), marginVertical: hp(30) }}>
-            <Button
-              text="Pay All"
-              handlePress={handlePayment}
-              disabled={!isPayAllActive}
-              color={isPayAllActive ? "#DB3A07" : "#DB3A0766"}
+    <Provider>
+      <Portal>
+        <SafeAreaView style={styles.container}>
+          <View style={styles.bgImageContainer}>
+            <ImageBackground
+              source={require("assets/pay_bg.jpg")}
+              resizeMode="cover"
+              style={styles.bgImage}
+            ></ImageBackground>
+            <Image
+              source={require("@/assets/profile.png")}
+              style={styles.profileImg}
             />
           </View>
-        </View>
-      )}
 
-      {tableType === "Payment history" && (
-        <View style={{ padding: hp(15), height: "auto", flex: 1 }}>
-          <AppDataTable
-            headerItems={[
-              { name: "Id", value: "id" },
-              { name: "Payment Type", value: "paymentType" },
-              { name: "Amount", value: "amount" },
-              { name: "Status", value: "status" },
+          <View style={styles.title}>
+            <Text style={{ fontSize: hp(18), fontWeight: "600" }}>
+              OGUNSEGBE TOSIN
+            </Text>
+            <Text style={{ fontSize: hp(12) }}>J.S.S. 1</Text>
+          </View>
+          <TableButton
+            tableTypes={[
+              { type: "Pending payments", label: "Pending payments" },
+              { type: "Payment history", label: "Payment history" },
             ]}
-            tableOptions={
-              <TouchableOpacity
-                onPress={() => {
-                  setModalType("paymentDetails");
-                  setIsModalVisible(true);
-                }}
-              >
-                <Text style={{ padding: 10 }}>View details</Text>
-              </TouchableOpacity>
-            }
-            showOptions={tableType === "Payment history" && true}
-            items={PAYMENT_HISTORY}
+            activeTableType={tableType}
+            setTableType={setTableType}
           />
-        </View>
-      )}
-
-      {isModalVisible && (
-        <CustomModal
-          visible={isModalVisible}
-          showModal={() => setIsModalVisible(true)}
-          hideModal={handleModalClose}
-        >
-          {modalType === "paymentDetails" && (
-            <PaymentDetailsModal onClose={handleModalClose} />
+          {tableType === "Pending payments" && (
+            <View style={{ flex: 1 }}>
+              {!showPaymentSummary ? (
+                <>
+                  <ScrollView style={{}} showsVerticalScrollIndicator={false}>
+                    {paymentDetails}
+                  </ScrollView>
+                  <View
+                    style={{
+                      paddingHorizontal: hp(20),
+                      marginVertical: hp(30),
+                    }}
+                  >
+                    <Button
+                      text="Pay All"
+                      handlePress={handlePayment}
+                      disabled={!isPayAllActive}
+                      color={isPayAllActive ? "#DB3A07" : "#DB3A0766"}
+                    />
+                  </View>
+                </>
+              ) : (
+                <ScrollView>
+                  <PaymentSummary
+                    handleCheckout={handleCheckout}
+                    handleEdit={() => setShowPaymentSummary(false)}
+                  />
+                </ScrollView>
+              )}
+            </View>
           )}
-        </CustomModal>
-      )}
-    </SafeAreaView>
+
+          {tableType === "Payment history" && (
+            <View style={{ padding: hp(15), height: "auto", flex: 1 }}>
+              <AppDataTable
+                headerItems={[
+                  { name: "Id", value: "id" },
+                  { name: "Payment Type", value: "paymentType" },
+                  { name: "Amount", value: "amount" },
+                  { name: "Status", value: "status" },
+                ]}
+                tableOptions={
+                  <TouchableOpacity
+                    onPress={() => {
+                      setModalType("paymentDetails");
+                      setIsModalVisible(true);
+                    }}
+                  >
+                    <Text style={{ padding: 10 }}>View details</Text>
+                  </TouchableOpacity>
+                }
+                showOptions={tableType === "Payment history" && true}
+                items={PAYMENT_HISTORY}
+              />
+            </View>
+          )}
+
+          {isModalVisible && (
+            <CustomModal
+              visible={isModalVisible}
+              showModal={() => setIsModalVisible(true)}
+              hideModal={handleModalClose}
+            >
+              {modalType === "paymentDetails" && (
+                <PaymentDetailsModal onClose={handleModalClose} />
+              )}
+            </CustomModal>
+          )}
+        </SafeAreaView>
+      </Portal>
+    </Provider>
   );
 }
 

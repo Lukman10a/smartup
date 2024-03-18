@@ -5,7 +5,7 @@ import TuitionContainer from "@/share/TuitionContainer";
 import DETAILS_DATA from "@/data";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Details from "@/share/Details";
-import Button from "@/share/Button";
+import Button from "@/share/PrimaryButton";
 import { useNavigation } from "@react-navigation/native";
 import { hp } from "@/utils/dimensions";
 import PaymentStructure from "@/share/paymentStructure";

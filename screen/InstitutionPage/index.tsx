@@ -13,7 +13,6 @@ import AppDataTable from "@/share/DataTable";
 import TableButton from "@/share/TableButton";
 import CustomModal from "../Modal";
 import ActionModal from "../Modal/ActionModal";
-import ReminderModal from "../Modal/ReminderModal";
 import { Portal, Provider } from "react-native-paper";
 import { COMPLETED_PAYMENT } from "@/data";
 import PaymentDetailsModal from "../Modal/PaymentDetailsModal";
@@ -129,8 +128,6 @@ export default function InstitutionPage() {
               }}
             />
           </View>
-
-          {/* <TableOne showOptions={tableType === "outstanding" && true} /> */}
           <View
             style={{
               padding: hp(15),

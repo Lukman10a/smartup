@@ -51,7 +51,8 @@ export default function StudentPayment() {
   };
 
   const handleCheckout = () => {
-    return navigation.navigate("FeeSummary");
+    // return navigation.navigate("FeeSummary");
+    return;
   };
 
   const paymentDetails = PAYMENT_DETAILS.map((item, index) => (

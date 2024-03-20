@@ -86,26 +86,26 @@ const AppDataTable: React.FC<{
   //   });
   // };
 
-  const renderDropdown = (): React.ReactElement<any, any> => (
-    <Modal
-      style={{ flex: 1 }}
-      visible={visible}
-      transparent
-      animationType="fade"
-      onRequestClose={() => setVisible(false)}
-    >
-      <TouchableOpacity
-        style={styles.overlay}
-        onPress={() => setVisible(false)}
-      >
-        <View
-          style={[styles.dropdown, { top: dropdownTop, left: dropdownRight }]}
-        >
-          {tableOptions}
-        </View>
-      </TouchableOpacity>
-    </Modal>
-  );
+  // const renderDropdown = (): React.ReactElement<any, any> => (
+  //   <Modal
+  //     style={{ flex: 1 }}
+  //     visible={visible}
+  //     transparent
+  //     animationType="fade"
+  //     onRequestClose={() => setVisible(false)}
+  //   >
+  //     <TouchableOpacity
+  //       style={styles.overlay}
+  //       onPress={() => setVisible(false)}
+  //     >
+  //       <View
+  //         style={[styles.dropdown, { top: dropdownTop, left: dropdownRight }]}
+  //       >
+  //         {tableOptions}
+  //       </View>
+  //     </TouchableOpacity>
+  //   </Modal>
+  // );
 
   const defaultRenderItem = ({ item, index }: { item: any; index: number }) => (
     <DataTable.Row key={item.id} style={{ gap: 30, position: "relative" }}>

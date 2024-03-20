@@ -11,7 +11,7 @@ import {
 import { hp } from "@/utils/dimensions";
 import PaymentDetail from "@/share/PaymentDetail";
 import Button from "@/share/PrimaryButton";
-import { PAYMENT_DETAILS, PAYMENT_HISTORY } from "@/data";
+import { PAYMENT_DETAILS, PAYMENT_HISTORY } from "@/utils/data";
 import TableButton from "@/share/TableButton";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -75,12 +75,12 @@ export default function StudentPayment() {
         <SafeAreaView style={styles.container}>
           <View style={styles.bgImageContainer}>
             <ImageBackground
-              source={require("assets/pay_bg.jpg")}
+              source={require("../../../assets/pay_bg.jpg")}
               resizeMode="cover"
               style={styles.bgImage}
             ></ImageBackground>
             <Image
-              source={require("@/assets/profile.png")}
+              source={require("../../../assets/profile.png")}
               style={styles.profileImg}
             />
           </View>

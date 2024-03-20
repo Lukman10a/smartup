@@ -14,7 +14,7 @@ import TableButton from "@/share/TableButton";
 import CustomModal from "../Modal";
 import ActionModal from "../Modal/ActionModal";
 import { Portal, Provider } from "react-native-paper";
-import { COMPLETED_PAYMENT } from "@/data";
+import { COMPLETED_PAYMENT } from "@/utils/data";
 import PaymentDetailsModal from "../Modal/PaymentDetailsModal";
 
 export default function InstitutionPage() {

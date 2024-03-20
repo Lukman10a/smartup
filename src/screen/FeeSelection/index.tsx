@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import Notes from "@/share/Notes";
 import TuitionContainer from "@/share/TuitionContainer";
-import DETAILS_DATA from "@/data";
+import DETAILS_DATA from "@/utils/data";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Details from "@/share/Details";
 import Button from "@/share/PrimaryButton";

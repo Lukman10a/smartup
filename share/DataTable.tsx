@@ -15,6 +15,7 @@ import {
 import { DataTable } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { hp } from "@/utils/dimensions";
+import Popover, { PopoverPlacement } from "react-native-popover-view";
 
 const AppDataTable: React.FC<{
   items?: any;
@@ -43,43 +44,47 @@ const AppDataTable: React.FC<{
     setPage(0);
   }, [itemsPerPage]);
 
-  const handleLayout = (event: LayoutChangeEvent, id: number) => {
-    const { x, y } = event.nativeEvent.layout;
-    setPositions((prevPositions) => ({
-      ...prevPositions,
-      [id]: { x, y },
-    }));
-  };
+  // const handleLayout = (event: LayoutChangeEvent, id: number) => {
+  //   const { x, y } = event.nativeEvent.layout;
+  //   setPositions((prevPositions) => ({
+  //     ...prevPositions,
+  //     [id]: { x, y },
+  //   }));
+  // };
 
-  const toggleDropdown = (
-    index: number,
-    event: NativeSyntheticEvent<NativeTouchEvent>
-  ) => {
-    setSelected(index);
-    setVisible(!visible);
-    openDropdown(index, event);
-  };
+  // const toggleDropdown = (
+  //   index: number,
+  //   event: NativeSyntheticEvent<NativeTouchEvent>
+  // ) => {
+  //   setSelected(index);
+  //   setVisible(!visible);
+  //   openDropdown(index, event);
+  // };
 
-  const openDropdown = (
-    index: number,
-    event: NativeSyntheticEvent<NativeTouchEvent>
-  ) => {
-    const { pageX, pageY } = event.nativeEvent;
-    const position = positions[index];
-    dropdownButtonRef.current?.measureInWindow((x, y, width, height) => {
-      if (!isNaN(width) && !isNaN(height)) {
-        const adjustedPageY = pageY + height;
-        const adjustedPageX = pageX + height;
-        const dropDownTop = Math.min(adjustedPageY, windowHeight + height);
-        const dropDownRight = Math.min(adjustedPageX, windowHeight + height);
-        setDropdownTop(dropDownTop);
-        setDropdownRight(dropDownRight);
-        setVisible(true);
-      } else {
-        console.error("Invalid values for dropdown position");
-      }
-    });
-  };
+  // const openDropdown = (
+  //   index: number,
+  //   event: NativeSyntheticEvent<NativeTouchEvent>
+  // ) => {
+  //   const { pageX, pageY } = event.nativeEvent;
+  //   const position = positions[index];
+  //   dropdownButtonRef.current?.measureInWindow((x, y, width, height) => {
+  //     if (!isNaN(width) && !isNaN(height)) {
+  //       const adjustedPageY = pageY + height;
+  //       const adjustedPageX = pageX - width;
+  //       const dropDownTop = Math.min(adjustedPageY, windowHeight + height);
+  //       const dropDownRight = Math.min(adjustedPageX, windowHeight + height);
+  //       setDropdownTop(dropDownTop);
+  //       setDropdownRight(dropDownRight);
+  //       if (selected === index) {
+  //         console.log({ position });
+
+  //         setVisible(true);
+  //       }
+  //     } else {
+  //       console.error("Invalid values for dropdown position");
+  //     }
+  //   });
+  // };
 
   const renderDropdown = (): React.ReactElement<any, any> => (
     <Modal
@@ -117,15 +122,23 @@ const AppDataTable: React.FC<{
       ))}
       {showOptions && (
         <DataTable.Cell style={{ position: "relative" }} numeric>
-          <TouchableOpacity
-            style={styles.dropdownButton}
-            ref={dropdownButtonRef}
-            onPress={(event) => toggleDropdown(index, event)}
-            onLayout={(event) => handleLayout(event, index)}
+          <Popover
+            placement={PopoverPlacement.BOTTOM}
+            // mode="js-modal"
+            from={
+              <TouchableOpacity
+                style={styles.dropdownButton}
+                ref={dropdownButtonRef}
+                // onPress={(event) => toggleDropdown(index, event)}
+                // onLayout={(event) => handleLayout(event, index)}
+              >
+                {/* {selected === index && renderDropdown()} */}
+                <Ionicons name="ellipsis-vertical" size={18} color="#202020" />
+              </TouchableOpacity>
+            }
           >
-            {selected === index && renderDropdown()}
-            <Ionicons name="ellipsis-vertical" size={18} color="#202020" />
-          </TouchableOpacity>
+            {tableOptions}
+          </Popover>
         </DataTable.Cell>
       )}
     </DataTable.Row>

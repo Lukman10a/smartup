@@ -2,26 +2,43 @@ import { hp } from "@/utils/dimensions";
 import * as React from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import { modalStyles } from "./styles";
+import ReminderModal from "./ReminderModal";
+import RestrictModal from "./RestrictModal";
 
 const Index = ({ onClose }: { onClose: () => void }) => {
   const [visible, setVisible] = React.useState(false);
+  const [modalType, setModalType] = React.useState<
+    "restrict" | "reminder" | "default"
+  >("default");
 
   const showModal = () => setVisible(true);
 
   return (
-    <View style={modalStyles.centerContainer}>
-      <Text style={modalStyles.title}>Take action</Text>
-      <Text style={modalStyles.subTitle}>
-        Select the action you’d prefer to take
-      </Text>
-      <View style={styles.actionbuttons}>
-        <TouchableOpacity style={styles.reminderButton} onPress={onClose}>
-          <Text style={styles.reminderText}>Send reminder</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.restrictButton}>
-          <Text style={styles.restrictText}>Restrict student</Text>
-        </TouchableOpacity>
-      </View>
+    <View>
+      {modalType === "default" && (
+        <View style={modalStyles.centerContainer}>
+          <Text style={modalStyles.title}>Take action</Text>
+          <Text style={modalStyles.subTitle}>
+            Select the action you’d prefer to take
+          </Text>
+          <View style={styles.actionbuttons}>
+            <TouchableOpacity
+              style={styles.reminderButton}
+              onPress={() => setModalType("reminder")}
+            >
+              <Text style={styles.reminderText}>Send reminder</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.restrictButton}
+              onPress={() => setModalType("restrict")}
+            >
+              <Text style={styles.restrictText}>Restrict student</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+      {modalType === "reminder" && <ReminderModal onClose={onClose} />}
+      {modalType === "restrict" && <RestrictModal onClose={onClose} />}
     </View>
   );
 };

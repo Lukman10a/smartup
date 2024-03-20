@@ -7,47 +7,30 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { Button, Modal, PaperProvider, Portal } from "react-native-paper";
 
-export default function RestrictModal() {
+export default function RestrictModal({ onClose }: { onClose: () => void }) {
   const [visible, setVisible] = React.useState(false);
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   return (
-    <PaperProvider>
-      <Portal>
-        <Modal
-          visible={visible}
-          onDismiss={hideModal}
-          contentContainerStyle={styles.container}
-        >
-          <View style={styles.centerContainer}>
-            <Text style={styles.title}>Restrict student</Text>
-            <Text style={styles.subTitle}>
-              Your message will be sent to the student’s email address.{" "}
-            </Text>
+    <View style={styles.centerContainer}>
+      <Text style={styles.title}>Restrict student</Text>
+      <Text style={styles.subTitle}>
+        Your message will be sent to the student’s email address.{" "}
+      </Text>
 
-            <TextInput
-              placeholder="Type in your message here..."
-              style={styles.input}
-            />
+      <TextInput
+        placeholder="Type in your message here..."
+        style={styles.input}
+      />
 
-            <View style={styles.actionbuttons}>
-              <TouchableOpacity style={styles.reminderButton}>
-                <Text style={styles.reminderText}>Restrict student</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
-      </Portal>
-      <Button
-        style={{ marginTop: 30, backgroundColor: "red" }}
-        onPress={showModal}
-      >
-        Show Restrict
-      </Button>
-    </PaperProvider>
+      <View style={styles.actionbuttons}>
+        <TouchableOpacity style={styles.reminderButton}>
+          <Text style={styles.reminderText}>Restrict student</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 

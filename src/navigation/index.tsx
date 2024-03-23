@@ -9,8 +9,8 @@ const MainStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="FeePage" component={FeeStack} />
-      <Stack.Screen name="PaymentPage" component={PaymentStack} />
       <Stack.Screen name="InstitutionPage" component={InstitutionPage} />
+      <Stack.Screen name="PaymentPage" component={PaymentStack} />
     </Stack.Navigator>
   );
 };

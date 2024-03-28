@@ -5,6 +5,7 @@ import { isOdd } from "@/utils";
 import { hp } from "@/utils/dimensions";
 import React from "react";
 import { View, Text, SafeAreaView } from "react-native";
+import FlutterPayment from "@/share/FlutterPayment";
 
 const datas = [
   { title: "Fee type", value: "Tuition fee" },
@@ -39,6 +40,7 @@ export default function PaymentSummary({
       ))}
       <View style={{ gap: hp(15) }}>
         <Button handlePress={handleCheckout} text="Check Out" />
+        <FlutterPayment />
         <SecondaryCta handlePress={handleEdit} text="Edit" />
       </View>
     </View>

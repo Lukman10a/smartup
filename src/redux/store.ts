@@ -1,10 +1,14 @@
 // src/app/store.ts
 import { configureStore } from "@reduxjs/toolkit";
 import selectedOptionsReducer from "./selectedOptionsSlice";
+import associatedFeeReducer from "./associatedFeeSlice";
+import installmentReducer from "./installmentSlice";
 
 export const store = configureStore({
   reducer: {
     selectedOptions: selectedOptionsReducer,
+    associatedFee: associatedFeeReducer,
+    payment: installmentReducer,
   },
 });
 

@@ -9,35 +9,8 @@ import Button from "@/share/PrimaryButton";
 import { useNavigation } from "@react-navigation/native";
 import { hp } from "@/utils/dimensions";
 import PaymentStructure from "@/share/paymentStructure";
-import { Picker } from "@react-native-picker/picker";
-
-export interface Installment {
-  type: number;
-  name: string;
-  breakdown: string[];
-}
-
-interface Payment {
-  title: string;
-  installments: Installment[];
-}
-
-const payment: Payment = {
-  title: "Payment Structure",
-  installments: [
-    { type: 1, name: "One-time payment", breakdown: ["₦100,000.00"] },
-    {
-      type: 2,
-      name: "2 installment payments",
-      breakdown: ["₦30,000.00", "₦50,000.00"],
-    },
-    {
-      type: 3,
-      name: "3 installment payments",
-      breakdown: ["₦20,000.00", "₦30,000.00", "₦50,000.00"],
-    },
-  ],
-};
+import { paymentSelector } from "@/redux/installmentSlice";
+import { useSelector } from "react-redux";
 
 const details = DETAILS_DATA.map((item) => (
   <View key={item.title}>
@@ -48,6 +21,7 @@ const details = DETAILS_DATA.map((item) => (
 const FeeSelection = () => {
   const [selectedLanguage, setSelectedLanguage] = useState();
   const navigation = useNavigation<FeeScreenNavigationProp>();
+  const payment = useSelector(paymentSelector);
 
   const handlePress = () => {
     return navigation.navigate("FeeSummary");
@@ -67,17 +41,6 @@ const FeeSelection = () => {
           title={payment.title}
           options={payment.installments}
         />
-        {/* <Picker
-          mode="dropdown"
-          
-          selectedValue={selectedLanguage}
-          onValueChange={(itemValue, itemIndex) =>
-            setSelectedLanguage(itemValue)
-          }
-        >
-          <Picker.Item label="Java" value="java" />
-          <Picker.Item label="JavaScript" value="js" />
-        </Picker> */}
         <Notes />
         <Button handlePress={handlePress} />
       </ScrollView>

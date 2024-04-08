@@ -5,7 +5,7 @@ import { isOdd } from "@/utils";
 import { hp } from "@/utils/dimensions";
 import React from "react";
 import { View, Text, SafeAreaView } from "react-native";
-import FlutterPayment from "@/share/FlutterPayment";
+import { useNavigation } from "@react-navigation/native";
 
 const datas = [
   { title: "Fee type", value: "Tuition fee" },
@@ -17,12 +17,18 @@ const datas = [
 ];
 
 export default function PaymentSummary({
-  handleCheckout,
+  handleCheckout: handleCheckoutPayment,
   handleEdit,
 }: {
   handleCheckout: () => void;
   handleEdit: () => void;
 }) {
+  const navigation = useNavigation<FeeScreenNavigationProp>();
+
+  const handleCheckout = () => {
+    console.log("checkout");
+    navigation.navigate("MakePaymentPage");
+  };
   return (
     <View style={{ padding: hp(15), height: "auto", flex: 1 }}>
       <Text
@@ -40,7 +46,6 @@ export default function PaymentSummary({
       ))}
       <View style={{ gap: hp(15) }}>
         <Button handlePress={handleCheckout} text="Check Out" />
-        <FlutterPayment />
         <SecondaryCta handlePress={handleEdit} text="Edit" />
       </View>
     </View>

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, StyleProp, ViewStyle } from "react-native";
 import React from "react";
 import { hp } from "@/utils/dimensions";
 
@@ -7,11 +7,13 @@ const FeeSummaryRow = ({
   selected,
   bgColor,
   total,
+  style,
 }: {
   title: string;
   selected: string;
   bgColor?: boolean;
   total?: boolean;
+  style?: StyleProp<ViewStyle>;
 }) => {
   return (
     <View
@@ -20,6 +22,7 @@ const FeeSummaryRow = ({
         {
           backgroundColor: bgColor ? "#F9F9F9" : "",
         },
+        style,
       ]}
     >
       <Text style={{ color: total ? "#DB3A07" : "#646464" }}>{title}</Text>

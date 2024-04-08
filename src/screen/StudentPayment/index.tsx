@@ -11,7 +11,11 @@ import {
 import { hp } from "@/utils/dimensions";
 import PaymentDetail from "@/share/PaymentDetail";
 import Button from "@/share/PrimaryButton";
-import { PAYMENT_DETAILS, PAYMENT_HISTORY } from "@/utils/data";
+import {
+  PAYMENT_DETAILS,
+  PAYMENT_HISTORY,
+  PENDING_HISTORY,
+} from "@/utils/data";
 import TableButton from "@/share/TableButton";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -20,11 +24,13 @@ import CustomModal from "../Modal";
 import PaymentDetailsModal from "../Modal/PaymentDetailsModal";
 import { Portal, Provider } from "react-native-paper";
 import PaymentSummary from "../PaymentSummary";
+import InstallmentPayment from "../InstallmentPayment";
 
 export default function StudentPayment() {
   const [tableType, setTableType] = useState<
     "Pending payments" | "Payment history"
   >("Pending payments");
+
   const [showPaymentSummary, setShowPaymentSummary] = useState(false);
   const navigation = useNavigation<PaymentStackNavigationProp>();
   const [selectedPayments, setSelectedPayments] = useState(
@@ -32,6 +38,10 @@ export default function StudentPayment() {
   );
   const [modalType, setModalType] = useState<"paymentDetails">();
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const [isPendingModalVisible, setIsPendingModalVisible] = useState(false);
+
+  const [showInstallmentDetail, setShowInstallmentDetail] = useState(false);
 
   const handlePayment = () => {
     setShowPaymentSummary(true);
@@ -47,12 +57,7 @@ export default function StudentPayment() {
 
   const handleModalClose = () => {
     setIsModalVisible(false);
-    setTableType("Payment history");
-  };
-
-  const handleCheckout = () => {
-    // return navigation.navigate("FeeSummary");
-    return;
+    // setTableType("Payment history");
   };
 
   const paymentDetails = PAYMENT_DETAILS.map((item, index) => (
@@ -65,9 +70,6 @@ export default function StudentPayment() {
       />
     </View>
   ));
-
-  const isPayAllActive =
-    selectedPayments.filter((selected) => selected).length > 2;
 
   return (
     <Provider>
@@ -99,36 +101,82 @@ export default function StudentPayment() {
             activeTableType={tableType}
             setTableType={setTableType}
           />
-          {tableType === "Pending payments" && (
-            <View style={{ flex: 1 }}>
-              {!showPaymentSummary ? (
-                <>
-                  <ScrollView style={{}} showsVerticalScrollIndicator={false}>
-                    {paymentDetails}
-                  </ScrollView>
-                  <View
-                    style={{
-                      paddingHorizontal: hp(20),
-                      marginVertical: hp(30),
+          {
+            tableType === "Pending payments" && (
+              <View style={{ padding: hp(15), height: "auto", flex: 1 }}>
+                {showInstallmentDetail ? (
+                  <InstallmentPayment
+                    showTable={() => {
+                      setShowInstallmentDetail(!showInstallmentDetail);
                     }}
-                  >
-                    <Button
-                      text="Pay All"
-                      handlePress={handlePayment}
-                      disabled={!isPayAllActive}
-                      color={isPayAllActive ? "#DB3A07" : "#DB3A0766"}
-                    />
-                  </View>
-                </>
-              ) : (
-                <ScrollView>
-                  <PaymentSummary
-                    handleCheckout={handleCheckout}
-                    handleEdit={() => setShowPaymentSummary(false)}
                   />
-                </ScrollView>
-              )}
-            </View>
+                ) : (
+                  <AppDataTable
+                    headerItems={[
+                      { name: "Id", value: "id" },
+                      { name: "Student name", value: "studentName" },
+                      { name: "Amount", value: "amount" },
+                      { name: "Due Date", value: "dueDate" },
+                    ]}
+                    tableOptions={
+                      <TouchableOpacity
+                        onPress={() => {
+                          setShowInstallmentDetail(true);
+                          // setModalType("paymentDetails");
+                          // setIsModalVisible(true);
+                          // navigation.navigate("InstallmentPayment");
+                        }}
+                      >
+                        <Text style={{ padding: 10 }}>Take Action</Text>
+                      </TouchableOpacity>
+                    }
+                    showOptions={tableType === "Pending payments" && true}
+                    items={PENDING_HISTORY}
+                  />
+                )}
+              </View>
+            )
+
+            // <View style={{ flex: 1 }}>
+            //   {!showPaymentSummary ? (
+            //     <>
+            //       <ScrollView style={{}} showsVerticalScrollIndicator={false}>
+            //         {paymentDetails}
+            //       </ScrollView>
+            //       <View
+            //         style={{
+            //           paddingHorizontal: hp(20),
+            //           marginVertical: hp(30),
+            //         }}
+            //       >
+            //         <Button
+            //           text="Pay All"
+            //           handlePress={handlePayment}
+            //           disabled={!isPayAllActive}
+            //           color={isPayAllActive ? "#DB3A07" : "#DB3A0766"}
+            //         />
+            //       </View>
+            //     </>
+            //   ) : (
+            //     <ScrollView>
+            //       <PaymentSummary
+            //         handleCheckout={handleCheckout}
+            //         handleEdit={() => setShowPaymentSummary(false)}
+            //       />
+            //     </ScrollView>
+            //   )}
+            // </View>
+          }
+
+          {isPendingModalVisible && (
+            <CustomModal
+              visible={isPendingModalVisible}
+              showModal={() => setIsPendingModalVisible(true)}
+              hideModal={handleModalClose}
+              // onPress={ navigation.navigate("FeeSummary");}
+            >
+              <TouchableOpacity></TouchableOpacity>
+            </CustomModal>
           )}
 
           {tableType === "Payment history" && (

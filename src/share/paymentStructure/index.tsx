@@ -1,9 +1,17 @@
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-import { useState } from "react";
-import { hp } from "@/utils/dimensions";
-import { Installment } from "@/screen/FeeSelection";
+import { useEffect, useState } from "react";
 import Dropdown from "./DropDown";
+import {
+  Installment,
+  addBreakdownItem,
+  editBreakdownItem,
+  paymentSelector,
+  removeBreakdownItem,
+} from "@/redux/installmentSlice";
+import { useDispatch, useSelector } from "react-redux";
+import InstallmentCard from "./installmentCard";
+import AddBreakdownModal from "./AddBreakdown";
 
 const PaymentStructure = ({
   title,
@@ -12,84 +20,163 @@ const PaymentStructure = ({
   title: string;
   options: Installment[];
 }) => {
-  const [data, setData] = useState(title);
+  const dispatch = useDispatch();
+  const payment = useSelector(paymentSelector);
   const [isClicked, setIsClicked] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<null | string>(null);
-  const [selectedBreakdown, setSelectedBreakdown] = useState<string[] | null>(
-    null
-  );
+  const [selectedItem, setSelectedItem] = useState<{
+    name: string;
+    type: number;
+  }>();
+  const [selectedBreakdown, setSelectedBreakdown] = useState<Installment[]>();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const handleSelectedOption = (item: string, breakdown: string[]) => {
-    setSelectedItem(item);
-    setSelectedBreakdown(breakdown);
+  const handleSelectedOption = (type: number, name: string) => {
+    setSelectedItem({ name, type });
+    setSelectedBreakdown(
+      payment.installments.filter((installment) => {
+        return installment.type === type;
+      })
+    );
     setIsClicked(!isClicked);
-    console.log({ options });
   };
 
   const handleIconClick = () => {
     setIsClicked(!isClicked);
   };
 
+  // Access payment state from Redux store
+  const handleAddBreakdownItem = (
+    type: number,
+    breakdownItem: { name: string; amount: string; date: string; id: string }
+  ) => {
+    dispatch(addBreakdownItem({ type, breakdownItem }));
+    // Update the selectedBreakdown state to include the newly added breakdown item
+    // setSelectedBreakdown((prevSelectedBreakdown) => {
+    //   const updatedBreakdown = prevSelectedBreakdown
+    //     ? [...prevSelectedBreakdown]
+    //     : [];
+    //   const installment = payment.installments.find(
+    //     (inst) => inst.type === type
+    //   );
+    //   if (installment) {
+    //     const updatedInstallment = {
+    //       ...installment,
+    //       breakdown: [...installment.breakdown, breakdownItem],
+    //     };
+    //     const index = updatedBreakdown.findIndex((inst) => inst.type === type);
+    //     if (index !== -1) {
+    //       updatedBreakdown[index] = updatedInstallment;
+    //     } else {
+    //       updatedBreakdown.push(updatedInstallment);
+    //     }
+    //   }
+    //   return updatedBreakdown;
+    // });
+  };
+
+  const handleEditBreakdown = (
+    type: number,
+    breakdownId: string,
+    updatedBreakdownItem: {
+      name: string;
+      amount: string;
+      date: string;
+      id: string;
+    }
+  ) => {
+    dispatch(
+      editBreakdownItem({
+        type,
+        breakdownId,
+        updatedBreakdownItem,
+      })
+    );
+  };
+
+  const handleRemoveBreakdown = (type: number, breakdownId: string) => {
+    dispatch(removeBreakdownItem({ type, breakdownId }));
+  };
+
+  const toggleModal = (installmentIndex: number | null = null) => {
+    setIsModalVisible(!isModalVisible);
+  };
+
+  useEffect(() => {
+    if (selectedItem) {
+      setSelectedBreakdown(
+        payment.installments.filter((installment) => {
+          return installment.type === selectedItem.type;
+        })
+      );
+    }
+  }, [payment.installments, selectedItem]);
+
   return (
     <View>
-      <View style={styles.detailContainer}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 10,
-          }}
-        >
-          <View style={{ gap: 8 }}>
-            {!selectedItem && <Text style={[styles.detailText]}>{data}</Text>}
-            {selectedItem && (
-              <Text style={styles.selecteOption}>{selectedItem}</Text>
-            )}
+      <View>
+        <View style={styles.detailContainer}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <View style={{ gap: 8 }}>
+              {!selectedItem && (
+                <Text style={[styles.detailText]}>{payment.title}</Text>
+              )}
+              {selectedItem && (
+                <Text style={styles.selecteOption}>{selectedItem.name}</Text>
+              )}
+            </View>
+            <TouchableOpacity onPress={handleIconClick}>
+              {isClicked ? (
+                <Entypo name="chevron-up" size={22} color="#646464" />
+              ) : (
+                <Entypo name="chevron-down" size={22} color="#646464" />
+              )}
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={handleIconClick}>
-            {isClicked ? (
-              <Entypo name="chevron-up" size={22} color="#646464" />
-            ) : (
-              <Entypo name="chevron-down" size={22} color="#646464" />
-            )}
-          </TouchableOpacity>
-        </View>
-        {selectedItem && (
-          <View style={{ gap: 6 }}>
-            {selectedBreakdown?.map((installment, index) => (
-              <View
-                style={styles.selectedInstallmentSplitContainer}
-                key={installment}
+          {selectedItem && (
+            <View style={{ gap: 6 }}>
+              {selectedBreakdown?.map((installment, index) =>
+                installment.breakdown.map((breakdown, index) => (
+                  <InstallmentCard
+                    key={index}
+                    name={breakdown.name}
+                    date={breakdown.date}
+                    amount={breakdown.amount}
+                  />
+                ))
+              )}
+              <TouchableOpacity
+                style={styles.addInstallmentCta}
+                onPress={() => toggleModal(selectedItem.type)}
               >
-                <Text style={styles.detailText}>
-                  {index + 1} installment payment
+                <Text style={{ color: "#DC3500" }}>
+                  Add a new associated fee
                 </Text>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text>{installment}</Text>
-                  <TouchableOpacity style={styles.buttonContainer}>
-                    <Text style={styles.buttonText}>Edit</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            ))}
-          </View>
-        )}
-      </View>
+                <Entypo name="plus" size={22} color="#DC3500" />
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
 
-      {isClicked ? (
-        <Dropdown
-          handleSelected={handleSelectedOption}
-          selectedItem={selectedItem}
-          options={options}
+        {isClicked ? (
+          <Dropdown
+            handleSelected={handleSelectedOption}
+            selectedItem={selectedItem?.name!}
+            options={options}
+          />
+        ) : null}
+
+        <AddBreakdownModal
+          visible={isModalVisible}
+          onClose={() => toggleModal(null)}
+          type={selectedItem?.type !== null ? selectedItem?.type : undefined}
         />
-      ) : null}
+      </View>
     </View>
   );
 };
@@ -99,9 +186,6 @@ export default PaymentStructure;
 const styles = StyleSheet.create({
   detailContainer: {
     backgroundColor: "#F1F1F1",
-    // flexDirection: "row",
-    // justifyContent: "space-between",
-    // alignItems: "center",
     padding: 16,
     borderRadius: 8,
     marginVertical: 4,
@@ -113,21 +197,15 @@ const styles = StyleSheet.create({
   selecteOption: {
     color: "#646464",
   },
-  buttonContainer: {
-    backgroundColor: "#DC35001A",
-    paddingHorizontal: hp(16),
-    paddingVertical: hp(5),
-    borderRadius: hp(6),
-  },
-  buttonText: {
-    textAlign: "center",
-    color: "#DB3A07",
-    fontSize: 10,
-  },
-  selectedInstallmentSplitContainer: {
-    backgroundColor: "white",
-    borderRadius: 8,
+
+  addInstallmentCta: {
+    borderWidth: 1,
+    borderStyle: "dashed",
+    borderColor: "#DC3500",
+    borderRadius: 6,
     padding: 10,
-    gap: 3,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });

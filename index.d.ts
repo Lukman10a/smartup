@@ -4,8 +4,10 @@ declare type FeeStackNavigatorParamList = {
   FeeCheckout: undefined;
 };
 declare type PaymentStackNavigatorParamList = {
-  FeeSummary: undefined;
+  StudentPayment: undefined;
+  PaymentSummary: undefined;
 };
+declare type InstitutionNavigatorParamList = {};
 
 declare type AuthStackNavigatorParamList = {
   Welcome: undefined;
@@ -21,3 +23,6 @@ declare type FeeScreenNavigationProp =
 
 declare type PaymentStackNavigationProp =
   NativeStackNavigationProp<PaymentStackNavigatorParamList>;
+
+declare type InstitutionNavigationProp =
+  NativeStackNavigationProp<InstitutionNavigatorParamList>;

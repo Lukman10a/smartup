@@ -9,10 +9,15 @@ import SecondaryCta from "@/share/SecondaryCta";
 import { hp } from "@/utils/dimensions";
 
 export default function FeeCheckout() {
-  const navigation = useNavigation<InstitutionNavigationProp>();
+  // const navigation = useNavigation<InstitutionNavigationProp>();
+  const navigation = useNavigation<PaymentStackNavigationProp>();
 
   const handlePress = () => {
-    return navigation.navigate("InstitutionPage");
+    // return navigation.navigate("InstitutionPage");
+    return navigation.navigate("StudentPayment");
+  };
+  const handleBack = () => {
+    return navigation.navigate("FeeSummary");
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -23,7 +28,7 @@ export default function FeeCheckout() {
       <FeeSummaryDetail total={true} />
       <View style={{ gap: hp(15) }}>
         <Button handlePress={handlePress} text="Check Out" />
-        <SecondaryCta handlePress={handlePress} text="Cancel" />
+        <SecondaryCta handlePress={handleBack} text="Cancel" />
       </View>
     </SafeAreaView>
   );

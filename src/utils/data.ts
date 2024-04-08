@@ -14,7 +14,6 @@ const DETAILS_DATA = [
   },
   { title: "Session", dropdown: ["2021/2022", "2022/2023", "2023/2024"] },
   { title: "Term", dropdown: ["First Term", "Second Term", "Third Term"] },
-
   {
     title: "Other associated fee",
     dropdown: [
@@ -164,4 +163,55 @@ export const PAYMENT_HISTORY = [
   },
   { id: 7, paymentType: "Party fee", amount: "₦20,000", status: "failed" },
   { id: 8, paymentType: "W.A.E.C Fee", amount: "₦4,500", status: "successful" },
+];
+
+export const PENDING_HISTORY = [
+  {
+    id: 1,
+    studentName: "JSS3-2023/24-3rd Term",
+    amount: "₦320,000.00",
+    dueDate: "18-11-2024",
+  },
+  {
+    id: 2,
+    studentName: "JSS3-2023/24-3rd Term",
+    amount: "₦320,000.00",
+    dueDate: "18-11-2024",
+  },
+  {
+    id: 3,
+    studentName: "JSS3-2023/24-3rd Term",
+    amount: "₦320,000.00",
+    dueDate: "18-11-2024",
+  },
+  {
+    id: 4,
+    studentName: "JSS3-2023/24-3rd Term",
+    amount: "₦320,000.00",
+    dueDate: "18-11-2024",
+  },
+  {
+    id: 5,
+    studentName: "JSS3-2023/24-3rd Term",
+    amount: "₦320,000.00",
+    dueDate: "18-11-2024",
+  },
+  {
+    id: 6,
+    studentName: "JSS3-2023/24-3rd Term",
+    amount: "₦320,000.00",
+    dueDate: "18-11-2024",
+  },
+  {
+    id: 7,
+    studentName: "JSS3-2023/24-3rd Term",
+    amount: "₦320,000.00",
+    dueDate: "18-11-2024",
+  },
+  {
+    id: 8,
+    studentName: "JSS3-2023/24-3rd Term",
+    amount: "₦320,000.00",
+    dueDate: "18-11-2024",
+  },
 ];

@@ -43,6 +43,7 @@ export default function InstallmentPayment({
   };
 
   const [checkedItems, setCheckedItems] = useState([false, false, false]);
+  const isButtonDisabled = !checkedItems.some((item) => item);
 
   const handleCheckboxPress = (index: number) => {
     const newCheckedItems = checkedItems.map((item, idx) =>
@@ -136,7 +137,11 @@ export default function InstallmentPayment({
         ))}
       </View>
       <View style={{ gap: hp(15), padding: hp(15) }}>
-        <Button handlePress={handleCheckout} text="Check Out" />
+        <Button
+          handlePress={handleCheckout}
+          text="Check Out"
+          disabled={isButtonDisabled}
+        />
       </View>
     </ScrollView>
   );
